@@ -1,5 +1,4 @@
 import { and, asc, count, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser,
   users,
@@ -15,15 +14,21 @@ import {
   userQuestionAttempts,
   userFlashcardReview,
 } from "../drizzle/schema";
-import { ENV } from './_core/env';
+import { ENV } from "./_core/env";
 
-let _db: ReturnType<typeof drizzle> | null = null;
+/** Import dinâmico: evita carregar o addon nativo `mysql2` no cold start da função serverless (Vercel). */
+async function createMysqlDb(connectionUrl: string) {
+  const { drizzle } = await import("drizzle-orm/mysql2");
+  return drizzle(connectionUrl);
+}
+
+let _db: Awaited<ReturnType<typeof createMysqlDb>> | null = null;
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _db = await createMysqlDb(process.env.DATABASE_URL);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
