@@ -4,6 +4,7 @@ import type { IRouter } from "express-serve-static-core";
 import crypto from "node:crypto";
 import { parse as parseCookieHeader } from "cookie";
 import * as db from "../db";
+import { asyncRoute } from "./asyncRoute";
 import { getSessionCookieOptions } from "./cookies";
 import { ENV } from "./env";
 import { sdk } from "./sdk";
@@ -13,30 +14,41 @@ function getQueryParam(req: Request, key: string): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
+function oauthCallbackHint(message: string): string {
+  if (message.includes("Token exchange failed")) return "token_exchange";
+  if (message.includes("Userinfo failed")) return "userinfo";
+  if (message.includes("Database") || message.includes("upsert")) return "database";
+  if (message.includes("JWT") || message.includes("sign") || message.includes("secret")) return "session_jwt";
+  return "unknown";
+}
+
 export function registerOAuthRoutes(app: IRouter) {
-  app.get("/api/auth/google/login", async (req: Request, res: Response) => {
-    if (!ENV.googleClientId) {
-      res.status(500).json({ error: "GOOGLE_CLIENT_ID não configurado" });
-      return;
-    }
-    const origin = `${req.protocol}://${req.get("host")}`;
-    const redirectUri = ENV.googleRedirectUri || `${origin}/api/auth/google/callback`;
-    const state = crypto.randomBytes(16).toString("hex");
-    const cookieOptions = getSessionCookieOptions(req);
-    res.cookie("google_oauth_state", state, { ...cookieOptions, maxAge: 10 * 60 * 1000 });
+  app.get(
+    "/api/auth/google/login",
+    asyncRoute(async (req: Request, res: Response) => {
+      if (!ENV.googleClientId) {
+        res.status(500).json({ error: "GOOGLE_CLIENT_ID não configurado" });
+        return;
+      }
+      const origin = `${req.protocol}://${req.get("host")}`;
+      const redirectUri = ENV.googleRedirectUri || `${origin}/api/auth/google/callback`;
+      const state = crypto.randomBytes(16).toString("hex");
+      const cookieOptions = getSessionCookieOptions(req);
+      res.cookie("google_oauth_state", state, { ...cookieOptions, maxAge: 10 * 60 * 1000 });
 
-    const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
-    url.searchParams.set("client_id", ENV.googleClientId);
-    url.searchParams.set("redirect_uri", redirectUri);
-    url.searchParams.set("response_type", "code");
-    url.searchParams.set("scope", "openid email profile");
-    url.searchParams.set("state", state);
-    url.searchParams.set("access_type", "offline");
-    url.searchParams.set("prompt", "consent");
-    res.redirect(302, url.toString());
-  });
+      const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+      url.searchParams.set("client_id", ENV.googleClientId);
+      url.searchParams.set("redirect_uri", redirectUri);
+      url.searchParams.set("response_type", "code");
+      url.searchParams.set("scope", "openid email profile");
+      url.searchParams.set("state", state);
+      url.searchParams.set("access_type", "offline");
+      url.searchParams.set("prompt", "consent");
+      res.redirect(302, url.toString());
+    }),
+  );
 
-  app.get("/api/auth/google/callback", async (req: Request, res: Response) => {
+  app.get("/api/auth/google/callback", asyncRoute(async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
     const cookieState = parseCookieHeader(req.headers.cookie ?? "").google_oauth_state;
@@ -46,6 +58,14 @@ export function registerOAuthRoutes(app: IRouter) {
     }
     if (!cookieState || cookieState !== state) {
       res.status(400).json({ error: "invalid oauth state" });
+      return;
+    }
+
+    if (!ENV.googleClientSecret?.trim()) {
+      res.status(500).json({
+        error: "GOOGLE_CLIENT_SECRET não configurado na Vercel",
+        hint: "missing_client_secret",
+      });
       return;
     }
 
@@ -103,12 +123,16 @@ export function registerOAuthRoutes(app: IRouter) {
       res.clearCookie("google_oauth_state", cookieOptions);
       res.redirect(302, "/");
     } catch (error) {
-      console.error("[Google OAuth] Callback failed", error);
-      res.status(500).json({ error: "Google OAuth callback failed" });
+      const err = error instanceof Error ? error : new Error(String(error));
+      console.error("[Google OAuth] Callback failed", err);
+      res.status(500).json({
+        error: "Google OAuth callback failed",
+        hint: oauthCallbackHint(err.message),
+      });
     }
-  });
+  }));
 
-  app.get("/api/oauth/callback", async (req: Request, res: Response) => {
+  app.get("/api/oauth/callback", asyncRoute(async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
 
@@ -144,8 +168,9 @@ export function registerOAuthRoutes(app: IRouter) {
 
       res.redirect(302, "/");
     } catch (error) {
-      console.error("[OAuth] Callback failed", error);
-      res.status(500).json({ error: "OAuth callback failed" });
+      const err = error instanceof Error ? error : new Error(String(error));
+      console.error("[OAuth] Callback failed", err);
+      res.status(500).json({ error: "OAuth callback failed", hint: oauthCallbackHint(err.message) });
     }
-  });
+  }));
 }

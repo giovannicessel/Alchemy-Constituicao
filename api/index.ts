@@ -19,10 +19,15 @@ async function ensureApiRoutesLoaded() {
 app.use(async (req, res, next) => {
   try {
     await ensureApiRoutesLoaded();
-    apiRouter(req, res, next);
   } catch (err) {
-    next(err);
+    console.error("[api/index] Falha ao carregar server/vercelAttachRoutes:", err);
+    res.status(500).json({
+      error: "api_bootstrap_failed",
+      message: err instanceof Error ? err.message : String(err),
+    });
+    return;
   }
+  apiRouter(req, res, next);
 });
 
 export default app;
