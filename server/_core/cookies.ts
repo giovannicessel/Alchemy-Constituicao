@@ -43,8 +43,9 @@ export function getSessionCookieOptions(
   return {
     httpOnly: true,
     path: "/",
-    // Browsers reject SameSite=None when Secure=false (common in localhost HTTP).
-    sameSite: secure ? "none" : "lax",
+    // Lax cobre SPA + API no mesmo site e o retorno OAuth (GET de topo a partir do Google).
+    // SameSite=None costuma ser desnecessário aqui e pode complicar cookies em alguns navegadores.
+    sameSite: "lax",
     secure,
   };
 }

@@ -8,30 +8,23 @@ function getOAuthPortalBase(): string | undefined {
   return raw.replace(/\/$/, "");
 }
 
-/** Definido no build (vite.config): aceita VITE_GOOGLE_CLIENT_ID ou GOOGLE_CLIENT_ID no ambiente. */
-function hasGoogleOAuthConfig(): boolean {
-  return Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim());
-}
-
 // Generate login URL at runtime so redirect URI reflects the current origin.
 export const getLoginUrl = (): string => {
-  if (hasGoogleOAuthConfig()) {
-    return `${window.location.origin}/api/auth/google/login`;
-  }
   const oauthPortalBase = getOAuthPortalBase();
-  const appId = import.meta.env.VITE_APP_ID ?? "";
-  const redirectUri = `${window.location.origin}/api/oauth/callback`;
-  const state = btoa(redirectUri);
+  if (oauthPortalBase) {
+    const appId = import.meta.env.VITE_APP_ID ?? "";
+    const redirectUri = `${window.location.origin}/api/oauth/callback`;
+    const state = btoa(redirectUri);
 
-  if (!oauthPortalBase) {
-    return `${window.location.origin}/`;
+    const url = new URL(`${oauthPortalBase}/app-auth`);
+    url.searchParams.set("appId", appId);
+    url.searchParams.set("redirectUri", redirectUri);
+    url.searchParams.set("state", state);
+    url.searchParams.set("type", "signIn");
+
+    return url.toString();
   }
 
-  const url = new URL(`${oauthPortalBase}/app-auth`);
-  url.searchParams.set("appId", appId);
-  url.searchParams.set("redirectUri", redirectUri);
-  url.searchParams.set("state", state);
-  url.searchParams.set("type", "signIn");
-
-  return url.toString();
+  // OAuth Google direto: o servidor valida GOOGLE_CLIENT_ID — não depende do ID embutido no bundle.
+  return `${window.location.origin}/api/auth/google/login`;
 };

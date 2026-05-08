@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
-import { defineConfig, loadEnv, type Plugin, type ViteDevServer } from "vite";
+import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 // =============================================================================
@@ -152,54 +152,37 @@ function vitePluginManusDebugCollector(): Plugin {
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
-const projectRoot = path.resolve(import.meta.dirname);
-
-export default defineConfig(({ mode }) => {
-  const fileEnv = loadEnv(mode, projectRoot, "");
-  // Em produção (ex.: Vercel), o Google Client ID costuma vir só como GOOGLE_CLIENT_ID no painel.
-  // O front só enxerga VITE_* no bundle; injetamos aqui para o link de login apontar para /api/auth/google/login.
-  const googleClientIdForClient =
-    fileEnv.VITE_GOOGLE_CLIENT_ID?.trim() ||
-    fileEnv.GOOGLE_CLIENT_ID?.trim() ||
-    process.env.VITE_GOOGLE_CLIENT_ID?.trim() ||
-    process.env.GOOGLE_CLIENT_ID?.trim() ||
-    "";
-
-  return {
-    plugins,
-    define: {
-      "import.meta.env.VITE_GOOGLE_CLIENT_ID": JSON.stringify(googleClientIdForClient),
+export default defineConfig({
+  plugins,
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
-    resolve: {
-      alias: {
-        "@": path.resolve(import.meta.dirname, "client", "src"),
-        "@shared": path.resolve(import.meta.dirname, "shared"),
-        "@assets": path.resolve(import.meta.dirname, "attached_assets"),
-      },
+  },
+  envDir: path.resolve(import.meta.dirname),
+  root: path.resolve(import.meta.dirname, "client"),
+  publicDir: path.resolve(import.meta.dirname, "client", "public"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true,
+    chunkSizeWarningLimit: 1500,
+  },
+  server: {
+    host: true,
+    allowedHosts: [
+      ".manuspre.computer",
+      ".manus.computer",
+      ".manus-asia.computer",
+      ".manuscomputer.ai",
+      ".manusvm.computer",
+      "localhost",
+      "127.0.0.1",
+    ],
+    fs: {
+      strict: true,
+      deny: ["**/.*"],
     },
-    envDir: projectRoot,
-    root: path.resolve(import.meta.dirname, "client"),
-    publicDir: path.resolve(import.meta.dirname, "client", "public"),
-    build: {
-      outDir: path.resolve(import.meta.dirname, "dist/public"),
-      emptyOutDir: true,
-      chunkSizeWarningLimit: 1500,
-    },
-    server: {
-      host: true,
-      allowedHosts: [
-        ".manuspre.computer",
-        ".manus.computer",
-        ".manus-asia.computer",
-        ".manuscomputer.ai",
-        ".manusvm.computer",
-        "localhost",
-        "127.0.0.1",
-      ],
-      fs: {
-        strict: true,
-        deny: ["**/.*"],
-      },
-    },
-  };
+  },
 });
