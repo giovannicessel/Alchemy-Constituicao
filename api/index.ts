@@ -7,6 +7,7 @@ import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
 
 const app = express();
+app.set("trust proxy", 1);
 
 // Configure body parser
 app.use(express.json({ limit: "50mb" }));
