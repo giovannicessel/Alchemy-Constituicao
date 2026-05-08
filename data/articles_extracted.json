@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "number": 1,
+    "originalText": "A República Federativa do Brasil, formada pela união indissolúvel dos Estados e Municípios e do Distrito Federal, constitui-se em Estado Democrático de Direito e tem como fundamentos: I - a soberania; II - a cidadania; III - a dignidade da pessoa humana; IV - os valores sociais do trabalho e da livre iniciativa; V - o pluralismo político. Parágrafo único. Todo o poder emana do povo, que o exerce por meio de representantes eleitos ou diretamente, nos termos desta Constituição.",
+    "simplifiedText": "O Brasil é uma República: poder público eleito, várias unidades federativas (União, estados, DF e municípios) ligadas de modo permanente. Somos um Estado democrático de Direito — ou seja, regras claras e direitos fundamentais em primeiro lugar. Os cinco fundamentos listados são soberania (quem manda é o povo), cidadania participativa, dignidade humana, valorização do trabalho e da iniciativa econômica com responsabilidade, e espaço para diferentes ideias políticas. Em uma frase: o poder nasce da sociedade e deve servir à sociedade, dentro da Constituição.",
+    "practicalExample": "Quando uma lei municipal tenta calar todo mundo que critique prefeito nas redes, ela esbarra no pluralismo político e na dignidade da pessoa humana — pilares listados logo no Art. 1º.",
+    "curiosity": "O texto une ‘Estado Democrático de Direito’ (expressão da filosofia política alemã Rechtsstaat) à realidade federativa brasileira — algo que não era óbvio na redação original de 1988, quando o país saía de uma ditadura militar.",
+    "keywordsTags": "república, democracia, soberania",
+    "titleNumber": 1,
+    "chapterOrder": 1
+  },
+  {
+    "id": 2,
+    "number": 2,
+    "originalText": "São Poderes da União, independentes e harmônicos entre si, o Legislativo, o Executivo e o Judiciário.",
+    "simplifiedText": "Na União existem três conjuntos de funções do Estado: quem faz leis (Legislativo), quem governa no dia a dia (Executivo) e quem julga conflitos (Judiciário). Eles são independentes — um não manda no outro — e harmônicos — precisam funcionar juntos sem travar o país.",
+    "practicalExample": "O Congresso aprova um orçamento; o Executivo executa; se surgir disputa sobre desvio de verba, o Judiciário decide. Ninguém ‘absorve’ o outro.",
+    "curiosity": "A palavra ‘harmônicos’ foi escolhida de propósito: não é o modelo americano ‘água-tight compartments’, mas um sistema em que os poderes dialogam (com freios, como o veto e o controle de constitucionalidade).",
+    "keywordsTags": "poderes, separação, harmonia",
+    "titleNumber": 1,
+    "chapterOrder": 1
+  },
+  {
+    "id": 3,
+    "number": 3,
+    "originalText": "Constituem objetivos fundamentais da República Federativa do Brasil: I - construir uma sociedade livre, justa e solidária; II - garantir o desenvolvimento nacional; III - erradicar a pobreza e a marginalização e reduzir desigualdades sociais e regionais; IV - promover o bem de todos, sem preconceitos de origem, raça, sexo, cor, idade e quaisquer outras formas de discriminação.",
+    "simplifiedText": "Aqui está o ‘para que’ do projeto constitucional: uma sociedade mais livre e fraterna, desenvolvimento com sentido social, combate à pobreza e à exclusão, e promoção do bem comum sem discriminação. São metas que orientam legisladores e juízes quando interpretam normas abertas.",
+    "practicalExample": "Políticas públicas de cotas ou de transporte acessível podem ser lidas à luz desses objetivos: reduzir desigualdades e combater exclusão.",
+    "curiosity": "O inciso IV usa lista exemplificativa — age, origem, sexo etc. — mas termina com ‘quaisquer outras formas’, abrindo espaço para novos combates à discriminação ao longo do tempo.",
+    "keywordsTags": "objetivos, república, desenvolvimento",
+    "titleNumber": 1,
+    "chapterOrder": 1
+  },
+  {
+    "id": 4,
+    "number": 4,
+    "originalText": "A República Federativa do Brasil rege-se nas suas relações internacionais pelos seguintes princípios: I - independência nacional; II - prevalência dos direitos humanos; III - autodeterminação dos povos.",
+    "simplifiedText": "Nas relações com outros países, o Brasil diz que prefere soberania autônoma, respeito aos direitos humanos, não ingerência indevida, igualdade entre Estados, pacificação de conflitos e cooperação. Também nega terrorismo e racismo como política de Estado e admite asilo político.",
+    "practicalExample": "Quando o Brasil discute sanções ou acordos climáticos, juízes raramente aplicam o Art. 4º diretamente — mas o Executivo usa esses princípios para orientar tratados.",
+    "curiosity": "É um dos poucos trechos que parece um mini-manual de política externa dentro da Carta — reflexo do momento pós-ditadura e da reaproximação com direitos humanos na diplomacia.",
+    "keywordsTags": "fronteiras, território, soberania",
+    "titleNumber": 1,
+    "chapterOrder": 1
+  },
+  {
+    "id": 5,
+    "number": 5,
+    "originalText": "Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade, nos termos seguintes:",
+    "simplifiedText": "O Art. 5º é a ‘supercarteira’ de direitos fundamentais no Brasil: igualdade formal, vida, liberdade, dignidade, devido processo legal, liberdade de expressão, direitos dos trabalhadores, direitos políticos, hábeas corpus, tutelas contra tortura e racismo, entre dezenas de garantias expressas. Na prática didática: comece pelos incisos que mais aparecem em provas — LXVI (devido processo), LXVIII (hc), VII e VIII (expressão e sigilo), XXXVIII (defesa técnica). Depois camadas para especialização.",
+    "practicalExample": "Se alguém é preso sem JUSTA causa ou sem direito a advogado em momento adequado, vários incisos do Art. 5º acendem ao mesmo tempo — por isso concursos pedem ‘casos’ e não só memorização.",
+    "curiosity": "O Art. 5º foi comparado a uma mini-declaração de direitos: mais de sessenta incisos em um único artigo, algo raro em constituições comparadas.",
+    "keywordsTags": "direitos fundamentais, igualdade, vida",
+    "titleNumber": 2,
+    "chapterOrder": 1
+  },
+  {
+    "id": 6,
+    "number": 6,
+    "originalText": "São direitos sociais a educação, a saúde, a alimentação, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, a assistência aos desamparados, na forma desta Constituição.",
+    "simplifiedText": "Direitos sociais são metas de políticas públicas: educação, saúde, moradia digna, mobilidade, segurança, previdência e proteção especial a quem precisa. Diferente de alguns direitos do Art. 5º, muitos aqui são programáticos — exigem lei e orçamento para virar realidade concreta.",
+    "practicalExample": "SUS e políticas de habitação podem ser defendidas como concretização desses direitos — sempre discutindo progressividade de recursos e competências federativas.",
+    "curiosity": "A Constituição de 1988 ficou conhecida como ‘Constituição Cidadã’ em parte por emendar a tradição liberal do texto para incluir um rol robusto de direitos sociais.",
+    "keywordsTags": "educação, saúde, políticas públicas",
+    "titleNumber": 2,
+    "chapterOrder": 2
+  },
+  {
+    "id": 7,
+    "number": 7,
+    "originalText": "São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social: I - relação de emprego protegida contra demissão arbitrária ou por discriminação sexista; II - seguro-desemprego, na forma da lei; III - fundo de garantia do tempo de serviço; IV - salário mínimo, fixado em lei, nacionalmente unificado, capaz de atender às suas necessidades vitais básicas e às de sua família com moradia, alimentação, educação, saúde, lazer, vestuário, higiene, transporte e previdência social; V - piso salarial proporcional à extensão e à complexidade do trabalho;",
+    "simplifiedText": "O Art. 7º lista direitos trabalhistas como salário mínimo, jornada limitada, férias remuneradas, licença-maternidade, proteção salarial da gestante, seguro-desemprego em casos previstos e mais. É o núcleo laboral da CF/88; cada inciso virou mil páginas de CLT e jurisprudência.",
+    "practicalExample": "Um trabalhador informal que prova vínculo pode pleitear direitos dessa lista — o juiz verifica inciso por inciso e a legislação infraconstitucional.",
+    "curiosity": "Muitos incisos são bandeiras históricas da redemocratização — sindicalização, proteção contra dispensa arbitrária em certos casos e políticas de segurança do trabalho.",
+    "keywordsTags": "trabalho, CLT, direitos trabalhistas",
+    "titleNumber": 2,
+    "chapterOrder": 2
+  },
+  {
+    "id": 8,
+    "number": 8,
+    "originalText": "É livre a associação profissional ou sindical, observado o seguinte: I - não é obrigatória a filiação sindical; IV - é obrigatória a participação dos trabalhadores nos lucros ou resultados, observado o disposto em lei específica; V - o direito de greve será exercido nos termos da lei específica; VI - é vedado o lockout; VIII - é vedada a diferença de salários, de exercício de função e de critério de admissão por motivo de sexo, idade, cor ou estado civil;",
+    "simplifiedText": "O Art. 8º regula sindicatos e relações coletivas: ninguém é obrigado a se filiar; taxas para não filiados só em casos bem específicos; greve tem lei própria; lockout (empresa impedir trabalho para pressionar) é proibido; salário mínimo profissional pode existir por lei após ouvir movimentos sociais; discriminação salarial por sexo, idade, cor ou estado civil é vedada; cooperativas puras não são automaticamente emprego.",
+    "practicalExample": "Se duas pessoas fazem o mesmo cargo e há diferença salarial só por gênero, o inciso VIII entra em cena junto com princípio da igualdade.",
+    "curiosity": "O inciso VI contra lockout expressa um traço social da Carta: proteção mais explícita ao lado trabalhador na greve em relação ao empregador.",
+    "keywordsTags": "redução de salário, benefícios, anistia",
+    "titleNumber": 2,
+    "chapterOrder": 2
+  },
+  {
+    "id": 9,
+    "number": 9,
+    "originalText": "É assegurado o direito de greve, competindo aos trabalhadores decidir sobre a oportunidade de exercê-lo e sobre os interesses que devam por meio dele defender.",
+    "simplifiedText": "O texto garante o direito de greve e deixa para os trabalhadores definir o momento e as reivindicações — sempre dentro da lei que disciplina o exercício.",
+    "practicalExample": "Profissionais da saúde podem parar para cobrar EPIs; a forma (aviso, serviços mínimos) segue a legislação específica da categoria.",
+    "curiosity": "A greve no serviço público tem regime próprio (LC complementar); no setor privado, regras também são detalhadas em lei.",
+    "keywordsTags": "greve, trabalhadores",
+    "titleNumber": 2,
+    "chapterOrder": 2
+  },
+  {
+    "id": 10,
+    "number": 10,
+    "originalText": "É assegurada a participação dos trabalhadores e empregadores nos colegiados dos órgãos públicos em que seus interesses profissionais ou previdenciários sejam objeto de discussão e deliberação.",
+    "simplifiedText": "Trabalhadores e empregadores podem integrar colegiados públicos quando o tema afeta diretamente interesses profissionais ou previdenciários.",
+    "practicalExample": "Conselhos de saúde ou de assistência social costumam ter assentos para representantes de trabalhadores e entidades patronais.",
+    "curiosity": "É um dos mecanismos de democracia participativa previstos na Carta, ligando sociedade civil e decisões públicas.",
+    "keywordsTags": "participação, conselhos",
+    "titleNumber": 2,
+    "chapterOrder": 2
+  }
+]

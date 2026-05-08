@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1778197862321,
+      "tag": "0000_tricky_outlaw_kid",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1778198256965,
+      "tag": "0001_conscious_omega_red",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1778241247578,
+      "tag": "0002_wandering_jackal",
+      "breakpoints": true
+    }
+  ]
+}

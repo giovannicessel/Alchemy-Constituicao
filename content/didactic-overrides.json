@@ -1,0 +1,22 @@
+{
+  "articles": [
+    {
+      "number": 9,
+      "keywordsTags": "greve, trabalhadores",
+      "titleNumber": 2,
+      "chapterOrder": 2,
+      "simplifiedText": "O texto garante o direito de greve e deixa para os trabalhadores definir o momento e as reivindicações — sempre dentro da lei que disciplina o exercício.",
+      "practicalExample": "Profissionais da saúde podem parar para cobrar EPIs; a forma (aviso, serviços mínimos) segue a legislação específica da categoria.",
+      "curiosity": "A greve no serviço público tem regime próprio (LC complementar); no setor privado, regras também são detalhadas em lei."
+    },
+    {
+      "number": 10,
+      "keywordsTags": "participação, conselhos",
+      "titleNumber": 2,
+      "chapterOrder": 2,
+      "simplifiedText": "Trabalhadores e empregadores podem integrar colegiados públicos quando o tema afeta diretamente interesses profissionais ou previdenciários.",
+      "practicalExample": "Conselhos de saúde ou de assistência social costumam ter assentos para representantes de trabalhadores e entidades patronais.",
+      "curiosity": "É um dos mecanismos de democracia participativa previstos na Carta, ligando sociedade civil e decisões públicas."
+    }
+  ]
+}

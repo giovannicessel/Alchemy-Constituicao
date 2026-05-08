@@ -1,0 +1,236 @@
+{
+  "titles": [
+    {
+      "number": 0,
+      "title": "Preâmbulo",
+      "description": "Introdução e princípios fundamentais da Constituição",
+      "order": 0
+    },
+    {
+      "number": 1,
+      "title": "Dos Princípios Fundamentais",
+      "description": "Artigos 1 a 4 - Fundamentos da República Federativa do Brasil",
+      "order": 1
+    },
+    {
+      "number": 2,
+      "title": "Dos Direitos e Garantias Fundamentais",
+      "description": "Artigos 5 a 17 - Direitos e deveres dos cidadãos",
+      "order": 2
+    },
+    {
+      "number": 3,
+      "title": "Da Organização do Estado",
+      "description": "Artigos 18 a 33 - Estrutura político-administrativa",
+      "order": 3
+    },
+    {
+      "number": 4,
+      "title": "Da Organização dos Poderes",
+      "description": "Artigos 44 a 135 - Poderes Legislativo, Executivo e Judiciário",
+      "order": 4
+    },
+    {
+      "number": 5,
+      "title": "Da Defesa do Estado e das Instituições Democráticas",
+      "description": "Artigos 136 a 144 - Estado de defesa, estado de sítio e forças armadas",
+      "order": 5
+    },
+    {
+      "number": 6,
+      "title": "Da Tributação e do Orçamento",
+      "description": "Artigos 145 a 169 - Sistema tributário nacional e finanças públicas",
+      "order": 6
+    },
+    {
+      "number": 7,
+      "title": "Da Ordem Econômica e Financeira",
+      "description": "Artigos 170 a 192 - Princípios da atividade econômica",
+      "order": 7
+    },
+    {
+      "number": 8,
+      "title": "Da Ordem Social",
+      "description": "Artigos 193 a 232 - Seguridade social, educação, cultura, meio ambiente",
+      "order": 8
+    },
+    {
+      "number": 9,
+      "title": "Das Disposições Constitucionais Gerais",
+      "description": "Artigos 233 a 250 - Disposições finais",
+      "order": 9
+    }
+  ],
+  "chapters": [
+    {
+      "titleId": 2,
+      "number": null,
+      "title": "Dos Princípios Fundamentais",
+      "description": "Fundamentos da República Federativa do Brasil",
+      "order": 1
+    },
+    {
+      "titleId": 3,
+      "number": 1,
+      "title": "Dos Direitos e Deveres Individuais e Coletivos",
+      "description": "Direitos fundamentais de todos os cidadãos",
+      "order": 1
+    },
+    {
+      "titleId": 3,
+      "number": 2,
+      "title": "Dos Direitos Sociais",
+      "description": "Direitos sociais e prestações positivas do Estado",
+      "order": 2
+    },
+    {
+      "titleId": 3,
+      "number": 3,
+      "title": "Da Nacionalidade",
+      "description": "Quem é considerado brasileiro e direitos de estrangeiros",
+      "order": 3
+    },
+    {
+      "titleId": 3,
+      "number": 4,
+      "title": "Dos Direitos Políticos",
+      "description": "Direito de voto, elegibilidade e participação política",
+      "order": 4
+    },
+    {
+      "titleId": 3,
+      "number": 5,
+      "title": "Dos Partidos Políticos",
+      "description": "Regulamentação de partidos políticos",
+      "order": 5
+    },
+    {
+      "titleId": 4,
+      "number": 1,
+      "title": "Da Organização Político-Administrativa",
+      "description": "Divisão política do Brasil",
+      "order": 1
+    },
+    {
+      "titleId": 4,
+      "number": 2,
+      "title": "Da União",
+      "description": "Competências da União Federal",
+      "order": 2
+    },
+    {
+      "titleId": 4,
+      "number": 3,
+      "title": "Dos Estados Federados",
+      "description": "Competências dos Estados",
+      "order": 3
+    },
+    {
+      "titleId": 4,
+      "number": 4,
+      "title": "Dos Municípios",
+      "description": "Competências dos Municípios",
+      "order": 4
+    },
+    {
+      "titleId": 5,
+      "number": 1,
+      "title": "Do Poder Legislativo",
+      "description": "Congresso Nacional, Câmara dos Deputados e Senado Federal",
+      "order": 1
+    },
+    {
+      "titleId": 5,
+      "number": 2,
+      "title": "Do Poder Executivo",
+      "description": "Presidente da República e Ministros de Estado",
+      "order": 2
+    },
+    {
+      "titleId": 5,
+      "number": 3,
+      "title": "Do Poder Judiciário",
+      "description": "Tribunais e juízes",
+      "order": 3
+    },
+    {
+      "titleId": 5,
+      "number": 4,
+      "title": "Das Funções Essenciais à Justiça",
+      "description": "Ministério Público, Advocacia Pública, Advocacia e Defensoria Pública",
+      "order": 4
+    },
+    {
+      "titleId": 6,
+      "number": 1,
+      "title": "Do Estado de Defesa e do Estado de Sítio",
+      "description": "Situações excepcionais de defesa do Estado",
+      "order": 1
+    },
+    {
+      "titleId": 6,
+      "number": 2,
+      "title": "Das Forças Armadas",
+      "description": "Organização e responsabilidades das Forças Armadas",
+      "order": 2
+    },
+    {
+      "titleId": 6,
+      "number": 3,
+      "title": "Da Segurança Pública",
+      "description": "Órgãos de segurança pública",
+      "order": 3
+    }
+  ],
+  "amendments": [
+    {
+      "number": 1,
+      "year": 1992,
+      "title": "Emenda Constitucional nº 1/1992",
+      "description": "Primeira emenda após a promulgação da Constituição",
+      "articlesAffected": "[]"
+    },
+    {
+      "number": 19,
+      "year": 1998,
+      "title": "Emenda Constitucional nº 19/1998",
+      "description": "Reforma Administrativa - Alterou significativamente a Administração Pública",
+      "articlesAffected": "[]"
+    },
+    {
+      "number": 32,
+      "year": 2001,
+      "title": "Emenda Constitucional nº 32/2001",
+      "description": "Reforma do Poder Executivo",
+      "articlesAffected": "[]"
+    },
+    {
+      "number": 45,
+      "year": 2004,
+      "title": "Emenda Constitucional nº 45/2004",
+      "description": "Reforma do Poder Judiciário",
+      "articlesAffected": "[]"
+    },
+    {
+      "number": 59,
+      "year": 2009,
+      "title": "Emenda Constitucional nº 59/2009",
+      "description": "Alterou a educação obrigatória",
+      "articlesAffected": "[]"
+    },
+    {
+      "number": 88,
+      "year": 2015,
+      "title": "Emenda Constitucional nº 88/2015",
+      "description": "Alterou disposições sobre militares",
+      "articlesAffected": "[]"
+    },
+    {
+      "number": 91,
+      "year": 2016,
+      "title": "Emenda Constitucional nº 91/2016",
+      "description": "Lei de Diretrizes Orçamentárias e alterações de limites fiscais e trabalhistas no serviço público (consolidada em edições do Livro da CF).",
+      "articlesAffected": "[]"
+    }
+  ]
+}

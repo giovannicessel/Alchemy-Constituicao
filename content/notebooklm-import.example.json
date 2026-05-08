@@ -1,0 +1,28 @@
+{
+  "quizQuestions": [
+    {
+      "articleNumber": 5,
+      "examBoard": "NotebookLM",
+      "theme": "Direitos Fundamentais",
+      "question": "Qual garantia do art. 5º protege a liberdade de locomoção?",
+      "optionA": "Habeas corpus",
+      "optionB": "Habeas data",
+      "optionC": "Mandado de injunção",
+      "optionD": "Ação popular",
+      "correctAnswer": "A",
+      "explanation": "O habeas corpus tutela a liberdade de locomoção.",
+      "difficulty": "easy"
+    }
+  ],
+  "flashcards": [
+    {
+      "articleNumber": 6,
+      "front": "Quais direitos estão no núcleo do art. 6º?",
+      "back": "Direitos sociais como educação, saúde, moradia, trabalho, transporte e assistência aos desamparados.",
+      "category": "Direitos Sociais",
+      "cardType": "notebooklm",
+      "difficulty": "medium",
+      "qualityScore": 88
+    }
+  ]
+}

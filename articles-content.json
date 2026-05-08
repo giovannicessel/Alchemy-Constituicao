@@ -1,0 +1,118 @@
+{
+  "articles": [
+    {
+      "chapterId": 1,
+      "number": 1,
+      "originalText": "A República Federativa do Brasil, formada pela união indissolúvel dos Estados e Municípios e do Distrito Federal, constitui-se em Estado Democrático de Direito e tem como fundamentos: I - a soberania; II - a cidadania; III - a dignidade da pessoa humana; IV - os valores sociais do trabalho e da livre iniciativa; V - o pluralismo político.",
+      "simplifiedText": "O Brasil é uma república democrática formada por Estados, Municípios e Distrito Federal. Seus fundamentos são: a soberania (poder do povo), a cidadania (direitos dos cidadãos), a dignidade humana, o valor do trabalho e da iniciativa privada, e o respeito a diferentes opiniões políticas.",
+      "curiosity": "A Constituição de 1988 é conhecida como 'Constituição Cidadã' porque foi a primeira a ser elaborada com participação direta do povo através de emendas populares.",
+      "practicalExample": "Quando você vota em eleições, está exercendo sua soberania. Quando você trabalha e contribui para a sociedade, está exercendo os valores sociais do trabalho.",
+      "keywordsTags": "república, democracia, soberania, cidadania, dignidade humana"
+    },
+    {
+      "chapterId": 1,
+      "number": 2,
+      "originalText": "A República Federativa do Brasil rege-se nas suas relações internacionais pelos seguintes princípios: I - independência nacional; II - prevalência dos direitos humanos; III - autodeterminação dos povos; IV - não-intervenção; V - igualdade entre os Estados; VI - defesa da paz; VII - solução pacífica dos conflitos; VIII - repúdio ao terrorismo e ao racismo; IX - cooperação entre os povos para o progresso da humanidade; X - concessão de asilo político.",
+      "simplifiedText": "O Brasil segue princípios nas relações com outros países: independência, respeito aos direitos humanos, respeito à autodeterminação dos povos, não-intervenção em assuntos internos de outros países, igualdade entre nações, defesa da paz, solução pacífica de conflitos, rejeição do terrorismo e racismo, cooperação internacional, e concessão de asilo político.",
+      "curiosity": "O Brasil é um dos poucos países que oferece asilo político, acolhendo pessoas que fogem de perseguição em seus países de origem.",
+      "practicalExample": "Quando o Brasil negocia com outros países sobre comércio ou meio ambiente, segue esses princípios. Por exemplo, o Brasil defende a Amazônia como patrimônio da humanidade.",
+      "keywordsTags": "relações internacionais, independência, direitos humanos, paz, asilo político"
+    },
+    {
+      "chapterId": 2,
+      "number": 5,
+      "originalText": "Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade, nos termos seguintes: I - homens e mulheres são iguais em direitos e obrigações, nos termos desta Constituição; II - ninguém será obrigado a fazer ou deixar de fazer alguma coisa senão em virtude de lei; III - ninguém será submetido a tortura nem a tratamento desumano ou degradante; IV - é livre a manifestação do pensamento, sendo vedado o anonimato; V - é assegurado o direito de resposta, proporcional ao agravo, além da indenização por dano moral, material ou à imagem; VI - é inviolável a liberdade de consciência e de crença, sendo assegurado o livre exercício dos cultos religiosos e garantida, na forma da lei, a proteção aos locais de culto e a suas liturgias; VII - é assegurada, nos termos da lei, a liberdade de associação para fins lícitos, vedada a de caráter paramilitar; VIII - ninguém será privado de direitos por motivo de crença religiosa ou de convicção filosófica ou política, salvo se as invocar para eximir-se de obrigação legal a todos imposta e recusar-se a cumprir prestação alternativa fixada em lei.",
+      "simplifiedText": "Todos têm direitos iguais perante a lei, sem discriminação. Esses direitos incluem: vida, liberdade, igualdade, segurança e propriedade. Homens e mulheres têm direitos iguais. Ninguém é obrigado a fazer algo que não está em lei. Ninguém pode ser torturado. Todos têm liberdade de expressão. Todos têm direito a resposta se forem ofendidos. Todos têm liberdade de religião. Todos podem se associar livremente para fins legais. Ninguém pode perder direitos por causa de sua religião ou ideologia política.",
+      "curiosity": "O artigo 5º é o mais longo da Constituição, com 78 incisos! Ele é considerado o coração da Constituição porque protege os direitos fundamentais de todos.",
+      "practicalExample": "Se alguém o ofender publicamente, você pode responder e pedir indenização. Se você é discriminado por sua religião no trabalho, pode processar o empregador. Se você quer criar um grupo de amigos para estudar, pode fazer isso livremente.",
+      "keywordsTags": "igualdade, direitos fundamentais, liberdade, vida, segurança, propriedade, tortura, religião"
+    },
+    {
+      "chapterId": 2,
+      "number": 6,
+      "originalText": "São direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, a assistência aos desamparados, na forma desta Constituição.",
+      "simplifiedText": "O Estado deve garantir direitos sociais: educação, saúde, alimentação adequada, trabalho digno, moradia, transporte, lazer, segurança, previdência social (aposentadoria), proteção à maternidade e infância, e assistência aos necessitados.",
+      "curiosity": "Esses direitos sociais foram uma grande inovação da Constituição de 1988, reconhecendo que o Estado tem responsabilidade de cuidar do bem-estar de todos os cidadãos.",
+      "practicalExample": "Você tem direito a educação pública gratuita, a atendimento de saúde pelo SUS, a receber seguro-desemprego se perder o emprego, e a aposentadoria quando envelhecer.",
+      "keywordsTags": "direitos sociais, educação, saúde, trabalho, moradia, previdência social"
+    }
+  ],
+  "quizQuestions": [
+    {
+      "chapterId": 1,
+      "question": "Qual é o fundamento da República Federativa do Brasil que garante o poder do povo?",
+      "optionA": "A cidadania",
+      "optionB": "A soberania",
+      "optionC": "A dignidade humana",
+      "optionD": "Os valores sociais do trabalho",
+      "correctAnswer": "B",
+      "explanation": "A soberania é o poder supremo do povo. A cidadania é o status de ser cidadão, a dignidade humana é o respeito à pessoa, e os valores sociais do trabalho referem-se ao valor do trabalho na sociedade.",
+      "difficulty": "easy"
+    },
+    {
+      "chapterId": 1,
+      "question": "Qual princípio das relações internacionais do Brasil garante que pessoas perseguidas em seus países possam vir para o Brasil?",
+      "optionA": "Cooperação entre os povos",
+      "optionB": "Igualdade entre os Estados",
+      "optionC": "Concessão de asilo político",
+      "optionD": "Defesa da paz",
+      "correctAnswer": "C",
+      "explanation": "O asilo político é o direito de uma pessoa perseguida em seu país de origem de ser acolhida por outro país. Os outros princípios referem-se a outras aspectos das relações internacionais.",
+      "difficulty": "easy"
+    },
+    {
+      "chapterId": 2,
+      "question": "De acordo com o artigo 5º da Constituição, qual é um direito fundamental garantido a todos?",
+      "optionA": "Trabalho remunerado em qualquer profissão",
+      "optionB": "Inviolabilidade do direito à vida",
+      "optionC": "Educação superior gratuita",
+      "optionD": "Viagem ao exterior sem restrições",
+      "correctAnswer": "B",
+      "explanation": "A inviolabilidade do direito à vida é um direito fundamental básico. Os outros são direitos mais específicos ou não são garantidos de forma absoluta.",
+      "difficulty": "easy"
+    },
+    {
+      "chapterId": 2,
+      "question": "Qual é a consequência legal se alguém o ofender publicamente, conforme o artigo 5º?",
+      "optionA": "Nenhuma, pois há liberdade de expressão",
+      "optionB": "Você pode responder e pedir indenização por dano moral",
+      "optionC": "A pessoa é automaticamente presa",
+      "optionD": "Você perde seus direitos políticos",
+      "correctAnswer": "B",
+      "explanation": "O artigo 5º garante liberdade de expressão, mas também assegura o direito de resposta e indenização por dano moral, criando um equilíbrio entre a liberdade de falar e a proteção da honra.",
+      "difficulty": "medium"
+    }
+  ],
+  "flashcards": [
+    {
+      "articleId": 1,
+      "front": "O que é soberania?",
+      "back": "Soberania é o poder supremo do povo. É o direito do povo de tomar decisões sobre seu próprio governo e destino.",
+      "category": "Conceitos Fundamentais"
+    },
+    {
+      "articleId": 1,
+      "front": "Qual é a forma de governo do Brasil?",
+      "back": "O Brasil é uma República Federativa, formada pela união de Estados, Municípios e Distrito Federal, e é um Estado Democrático de Direito.",
+      "category": "Forma de Governo"
+    },
+    {
+      "articleId": 2,
+      "front": "O que é asilo político?",
+      "back": "Asilo político é o direito de uma pessoa perseguida em seu país de origem de ser acolhida por outro país, protegendo sua vida e liberdade.",
+      "category": "Relações Internacionais"
+    },
+    {
+      "articleId": 3,
+      "front": "Quais são os direitos fundamentais garantidos no artigo 5º?",
+      "back": "Vida, liberdade, igualdade, segurança e propriedade. Também inclui liberdade de expressão, religião, associação e proteção contra tortura.",
+      "category": "Direitos Fundamentais"
+    },
+    {
+      "articleId": 4,
+      "front": "Quais são os direitos sociais?",
+      "back": "Educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança, previdência social, proteção à maternidade e infância, e assistência aos desamparados.",
+      "category": "Direitos Sociais"
+    }
+  ]
+}

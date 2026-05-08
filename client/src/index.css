@@ -1,0 +1,352 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --primary: var(--color-blue-700);
+  --primary-foreground: var(--color-blue-50);
+  --sidebar-primary: var(--color-blue-600);
+  --sidebar-primary-foreground: var(--color-blue-50);
+  --chart-1: var(--color-blue-300);
+  --chart-2: var(--color-blue-500);
+  --chart-3: var(--color-blue-600);
+  --chart-4: var(--color-blue-700);
+  --chart-5: var(--color-blue-800);
+  --radius: 0.65rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.235 0.015 65);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.235 0.015 65);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.235 0.015 65);
+  --secondary: oklch(0.98 0.001 286.375);
+  --secondary-foreground: oklch(0.4 0.015 65);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.141 0.005 285.823);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.623 0.214 259.815);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.235 0.015 65);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.623 0.214 259.815);
+}
+
+.dark {
+  --primary: var(--color-blue-700);
+  --primary-foreground: var(--color-blue-50);
+  --sidebar-primary: var(--color-blue-500);
+  --sidebar-primary-foreground: var(--color-blue-50);
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.85 0.005 65);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.85 0.005 65);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.85 0.005 65);
+  --secondary: oklch(0.24 0.006 286.033);
+  --secondary-foreground: oklch(0.7 0.005 65);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground:  oklch(0.92 0.005 65);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.488 0.243 264.376);
+  --chart-1: var(--color-blue-300);
+  --chart-2: var(--color-blue-500);
+  --chart-3: var(--color-blue-600);
+  --chart-4: var(--color-blue-700);
+  --chart-5: var(--color-blue-800);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.85 0.005 65);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground:  oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.488 0.243 264.376);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  /**
+   * Custom container utility that centers content and adds responsive padding.
+   *
+   * This overrides Tailwind's default container behavior to:
+   * - Auto-center content (mx-auto)
+   * - Add responsive horizontal padding
+   * - Set max-width for large screens
+   *
+   * Usage: <div className="container">...</div>
+   *
+   * For custom widths, use max-w-* utilities directly:
+   * <div className="max-w-6xl mx-auto px-4">...</div>
+   */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem; /* 16px - mobile padding */
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem; /* 32px - desktop padding */
+      padding-right: 2rem;
+      max-width: 1280px; /* Standard content width */
+    }
+  }
+}
+
+/* ===== PIXEL ART 16-BIT THEME ===== */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --pixel-dark: #1a1a2e;
+  --pixel-blue: #0f3460;
+  --pixel-cyan: #16c784;
+  --pixel-lime: #00ff41;
+  --pixel-yellow: #ffff00;
+  --pixel-purple: #8800ff;
+  --pixel-white: #ffffff;
+  --pixel-gray: #888888;
+  --pixel-page-bg: #f4f6fb;
+  --pixel-surface: #ffffff;
+  --pixel-header: #e6ebf7;
+  --pixel-border-soft: #5a7cb8;
+  --pixel-text-main: #1b2430;
+  --pixel-text-muted: #3d4f6b;
+}
+
+.dark {
+  --pixel-page-bg: #1a1a2e;
+  --pixel-surface: #0f3460;
+  --pixel-header: #0f3460;
+  --pixel-border-soft: #16c784;
+  --pixel-text-main: #f3f7ff;
+  --pixel-text-muted: #b9d8c8;
+}
+
+/* Efeito de scanline */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.035),
+    rgba(0, 0, 0, 0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 9998;
+}
+
+/* Animações pixel art */
+@keyframes pixel-pulse {
+  0%, 100% { text-shadow: 0 0 0px var(--pixel-cyan); }
+  50% { text-shadow: 0 0 8px var(--pixel-cyan), 0 0 16px var(--pixel-purple); }
+}
+
+@keyframes pixel-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pixel-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--pixel-cyan), inset 0 0 5px rgba(22, 199, 132, 0.2); }
+  50% { box-shadow: 0 0 15px var(--pixel-cyan), inset 0 0 10px rgba(22, 199, 132, 0.4); }
+}
+
+@keyframes glitch {
+  0% { clip-path: inset(40% 0 61% 0); transform: translate(0); }
+  20% { clip-path: inset(92% 0 1% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px, -2px); }
+  60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, 2px); }
+  80% { clip-path: inset(54% 0 7% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(0); }
+}
+
+.animate-pixel-pulse { animation: pixel-pulse 2s ease-in-out infinite; }
+.animate-pixel-bounce { animation: pixel-bounce 1s ease-in-out infinite; }
+.animate-pixel-glow { animation: pixel-glow 2s ease-in-out infinite; }
+.glitch { animation: glitch 0.3s ease-in-out infinite; }
+
+/* Customizar fontes para pixel art */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Press Start 2P', cursive !important;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  color: var(--pixel-lime);
+  text-shadow: 2px 2px 0px var(--pixel-purple), 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+  color: var(--pixel-cyan);
+  text-shadow: 1px 1px 0px rgba(136, 0, 255, 0.45);
+}
+
+h3 {
+  color: var(--pixel-yellow);
+  text-shadow: none;
+}
+
+/* Botões com estilo pixel art */
+.btn-pixel {
+  background-color: var(--pixel-surface);
+  color: var(--pixel-text-main);
+  border: 2px solid var(--pixel-border-soft);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: all 0.05s ease;
+  font-family: 'Press Start 2P', cursive, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+}
+
+.btn-pixel:hover {
+  background-color: color-mix(in srgb, var(--pixel-surface) 70%, var(--pixel-cyan));
+  color: var(--pixel-text-main);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.45);
+  transform: translate(-2px, -2px);
+}
+
+.btn-pixel:active {
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+  transform: translate(2px, 2px);
+}
+
+/* Cards com estilo pixel art */
+.card-pixel {
+  background-color: var(--pixel-surface);
+  border: 2px solid var(--pixel-border-soft);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4);
+  padding: 16px;
+  position: relative;
+}
+
+/* Input com estilo pixel art */
+.input-pixel {
+  background-color: var(--pixel-dark);
+  color: var(--pixel-lime);
+  border: 2px solid var(--pixel-cyan);
+  padding: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.input-pixel::placeholder {
+  color: var(--pixel-gray);
+}
+
+.input-pixel:focus {
+  outline: none;
+  border-color: var(--pixel-yellow);
+  box-shadow: 0 0 8px var(--pixel-yellow);
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pixel-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pixel-cyan);
+  border: 2px solid var(--pixel-blue);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pixel-lime);
+}
