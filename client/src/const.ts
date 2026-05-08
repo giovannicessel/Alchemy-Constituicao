@@ -8,8 +8,9 @@ function getOAuthPortalBase(): string | undefined {
   return raw.replace(/\/$/, "");
 }
 
+/** Definido no build (vite.config): aceita VITE_GOOGLE_CLIENT_ID ou GOOGLE_CLIENT_ID no ambiente. */
 function hasGoogleOAuthConfig(): boolean {
-  return Boolean(import.meta.env.GOOGLE_CLIENT_ID || import.meta.env.VITE_GOOGLE_CLIENT_ID);
+  return Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim());
 }
 
 // Generate login URL at runtime so redirect URI reflects the current origin.
