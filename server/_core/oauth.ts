@@ -1,5 +1,5 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "../../shared/const";
-import type { Express, Request, Response } from "express";
+import type { Application, Request, Response } from "express";
 import crypto from "node:crypto";
 import { parse as parseCookieHeader } from "cookie";
 import * as db from "../db";
@@ -12,7 +12,7 @@ function getQueryParam(req: Request, key: string): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
-export function registerOAuthRoutes(app: Express) {
+export function registerOAuthRoutes(app: Application) {
   app.get("/api/auth/google/login", async (req: Request, res: Response) => {
     if (!ENV.googleClientId) {
       res.status(500).json({ error: "GOOGLE_CLIENT_ID não configurado" });
