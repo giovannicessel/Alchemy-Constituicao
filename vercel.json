@@ -19,6 +19,10 @@
     "api/google-callback.ts": {
       "maxDuration": 60,
       "memory": 1024
+    },
+    "api/auth-session.ts": {
+      "maxDuration": 30,
+      "memory": 512
     }
   },
   "rewrites": [
@@ -45,6 +49,14 @@
     {
       "source": "/api/oauth/callback",
       "destination": "/api/oauth.ts"
+    },
+    {
+      "source": "/api/auth/me",
+      "destination": "/api/auth-session.ts"
+    },
+    {
+      "source": "/api/auth/logout",
+      "destination": "/api/auth-session.ts"
     },
     {
       "source": "/api/(.*)",
