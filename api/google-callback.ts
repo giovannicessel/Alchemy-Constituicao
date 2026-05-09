@@ -1,7 +1,5 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
-import { SignJWT } from "jose";
-import { ENV } from "../server/_core/env";
 
 /**
  * Tudo num só ficheiro — a Vercel não empacota bem `api/foo.ts` + `api/bar.ts` irmãos.
@@ -81,7 +79,8 @@ async function upsertGoogleOAuthUser(input: {
   name: string | null;
   email: string | null;
 }): Promise<void> {
-  const databaseUrl = ENV.databaseUrl;
+  const databaseUrl =
+    trimEnv("DATABASE_URL") || trimEnv("MYSQL_URL") || trimEnv("PRISMA_DATABASE_URL");
   if (!databaseUrl) {
     console.warn("[google-callback] DATABASE_URL / MYSQL_URL ausente — skip upsert");
     return;
@@ -233,6 +232,7 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     const expirationSeconds = Math.floor((issuedAt + ONE_YEAR_MS) / 1000);
     const secretKey = new TextEncoder().encode(cookieSecret);
 
+    const { SignJWT } = await import("jose");
     const sessionToken = await new SignJWT({
       openId,
       appId,
