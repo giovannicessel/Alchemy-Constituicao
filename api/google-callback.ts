@@ -204,8 +204,13 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
 
     const openId = `google:${profile.sub}`;
 
-    const skipDb =
+    // Hotfix Vercel: por padrão, não tocar DB no callback para evitar crash nativo do mysql2.
+    // Para reativar persistência no callback, defina ENABLE_GOOGLE_OAUTH_DB=1.
+    const enableDbExplicitly =
+      process.env.ENABLE_GOOGLE_OAUTH_DB === "1" || process.env.ENABLE_GOOGLE_OAUTH_DB === "true";
+    const skipDbByFlag =
       process.env.SKIP_GOOGLE_OAUTH_DB === "1" || process.env.SKIP_GOOGLE_OAUTH_DB === "true";
+    const skipDb = skipDbByFlag || (process.env.VERCEL === "1" && !enableDbExplicitly);
     if (!skipDb) {
       await Promise.race([
         upsertGoogleOAuthUser({
