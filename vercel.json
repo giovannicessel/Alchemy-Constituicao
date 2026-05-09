@@ -39,6 +39,10 @@
       "destination": "/api/smoke.ts"
     },
     {
+      "source": "/api/db-check",
+      "destination": "/api/db-check.ts"
+    },
+    {
       "source": "/api/auth/google/login",
       "destination": "/api/google-login.ts"
     },
