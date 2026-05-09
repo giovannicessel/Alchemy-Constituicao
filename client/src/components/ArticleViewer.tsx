@@ -44,9 +44,9 @@ export default function ArticleViewer({ article, onMarkAsRead }: ArticleViewerPr
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
             Artigo {article.number}
           </h1>
           {keywords.length > 0 && (
@@ -62,7 +62,7 @@ export default function ArticleViewer({ article, onMarkAsRead }: ArticleViewerPr
         <Button
           onClick={() => onMarkAsRead?.(article.id)}
           variant="outline"
-          className="gap-2"
+          className="gap-2 w-full min-h-11 shrink-0 sm:w-auto"
         >
           <BookMarked className="w-4 h-4" />
           Marcar como lido

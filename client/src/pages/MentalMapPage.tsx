@@ -139,11 +139,10 @@ const TreeNode = ({ node, isRoot = false, onOpenSummary }: { node: any; isRoot?:
     <div className="flex items-stretch group relative">
       {/* O nó em si */}
       <div className="flex flex-col justify-center relative">
-        <div className="flex items-center">
+          <div className="flex items-center max-w-[min(100vw-2rem,100%)]">
           <div
-            className={`card-pixel px-4 py-2 text-sm relative z-10 transition-transform hover:scale-[1.02] 
-              ${isRoot ? "font-bold text-base bg-violet-900 text-white dark:bg-violet-950 border-violet-400 cursor-pointer" : "bg-[var(--pixel-surface)] border-[var(--pixel-border-soft)] text-[var(--pixel-text-main)]"}`}
-            style={{ whiteSpace: "nowrap", minWidth: isRoot ? "250px" : "auto" }}
+            className={`card-pixel px-3 py-2 sm:px-4 text-xs sm:text-sm relative z-10 transition-transform hover:scale-[1.02] break-words whitespace-normal sm:whitespace-nowrap min-w-0 sm:min-w-0
+              ${isRoot ? "font-bold text-sm sm:text-base bg-violet-900 text-white dark:bg-violet-950 border-violet-400 cursor-pointer sm:min-w-[250px]" : "bg-[var(--pixel-surface)] border-[var(--pixel-border-soft)] text-[var(--pixel-text-main)]"}`}
           >
             {/* Se tiver link/resumo, é clicável para abrir a popup */}
             {node.link ? (
@@ -209,11 +208,14 @@ export default function MentalMapPage() {
 
   return (
     <div className="min-h-screen bg-[var(--pixel-page-bg)] text-[var(--pixel-text-main)] overflow-hidden flex flex-col relative">
-      <header className="sticky top-0 z-40 bg-[var(--pixel-header)] border-b-2 border-[var(--pixel-border-soft)] shadow-md shrink-0">
-        <div className="max-w-[1400px] mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Brain className="w-6 h-6 text-[var(--pixel-text-main)]" />
-            <h1 className="text-xl font-bold text-[var(--pixel-text-main)] hidden sm:block">Mapa Mental CF/88 Interativo</h1>
+      <header className="sticky top-0 z-40 bg-[var(--pixel-header)] border-b-2 border-[var(--pixel-border-soft)] shadow-md shrink-0 pt-[env(safe-area-inset-top)]">
+        <div className="max-w-[1400px] mx-auto px-4 min-h-16 py-2 flex flex-wrap items-center justify-between gap-2 sm:h-16 sm:py-0">
+          <div className="flex items-center gap-2 min-w-0">
+            <Brain className="w-6 h-6 shrink-0 text-[var(--pixel-text-main)]" />
+            <h1 className="text-base font-bold text-[var(--pixel-text-main)] sm:text-xl truncate sm:whitespace-normal">
+              <span className="sm:hidden">Mapa CF/88</span>
+              <span className="hidden sm:inline">Mapa Mental CF/88 Interativo</span>
+            </h1>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
@@ -223,14 +225,17 @@ export default function MentalMapPage() {
       </header>
 
       {/* Controles de Zoom Flutuantes */}
-      <div className="absolute bottom-6 right-6 z-50 flex gap-2 p-2 bg-[var(--pixel-surface)] border-2 border-[var(--pixel-border-soft)] shadow-lg" style={{ borderRadius: 0 }}>
-        <button onClick={handleZoomOut} className="p-2 hover:bg-black/10 dark:hover:bg-white/10" title="Afastar">
+      <div
+        className="absolute z-50 flex gap-2 p-2 bg-[var(--pixel-surface)] border-2 border-[var(--pixel-border-soft)] shadow-lg max-sm:bottom-[max(1rem,env(safe-area-inset-bottom))] max-sm:right-[max(0.75rem,env(safe-area-inset-right))] bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))]"
+        style={{ borderRadius: 0 }}
+      >
+        <button onClick={handleZoomOut} className="p-2 min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10" title="Afastar">
           <ZoomOut className="w-5 h-5 text-[var(--pixel-text-main)]" />
         </button>
-        <button onClick={handleZoomReset} className="p-2 hover:bg-black/10 dark:hover:bg-white/10" title="Tamanho Original">
+        <button onClick={handleZoomReset} className="p-2 min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10" title="Tamanho Original">
           <Maximize className="w-5 h-5 text-[var(--pixel-text-main)]" />
         </button>
-        <button onClick={handleZoomIn} className="p-2 hover:bg-black/10 dark:hover:bg-white/10" title="Aproximar">
+        <button onClick={handleZoomIn} className="p-2 min-h-11 min-w-11 inline-flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10" title="Aproximar">
           <ZoomIn className="w-5 h-5 text-[var(--pixel-text-main)]" />
         </button>
       </div>
@@ -244,7 +249,7 @@ export default function MentalMapPage() {
         </div>
 
         {/* Container do Mapa Mental arrastável/scrollável */}
-        <div className="w-full h-[calc(100vh-64px)] overflow-auto p-12 custom-scrollbar">
+        <div className="w-full h-[calc(100dvh-4rem)] sm:h-[calc(100vh-4rem)] overflow-auto p-4 pt-20 sm:p-12 sm:pt-12 custom-scrollbar">
           <div 
             className="inline-block min-w-max transition-transform duration-200"
             style={{ 

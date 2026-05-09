@@ -19,28 +19,36 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--pixel-page-bg)", color: "var(--pixel-text-main)" }}>
       {/* Header */}
-      <header className="sticky top-0 z-40" style={{ backgroundColor: "var(--pixel-header)", borderBottom: "2px solid var(--pixel-border-soft)" }}>
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold" style={{ color: '#00ff41', textShadow: '4px 4px 0px #8800ff' }}>
+      <header
+        className="sticky top-0 z-40 pt-[env(safe-area-inset-top)]"
+        style={{ backgroundColor: "var(--pixel-header)", borderBottom: "2px solid var(--pixel-border-soft)" }}
+      >
+        <div className="max-w-6xl mx-auto px-4 min-h-16 py-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:py-0">
+          <div className="flex items-center justify-between gap-3 sm:justify-start min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold truncate" style={{ color: '#00ff41', textShadow: '4px 4px 0px #8800ff' }}>
               CF/88
             </h1>
+            <div className="flex items-center gap-2 sm:hidden shrink-0">
+              <ThemeToggle />
+            </div>
           </div>
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 sm:justify-end">
+            <div className="hidden sm:block">
+              <ThemeToggle />
+            </div>
             {loading ? (
               <div className="h-10 w-24 animate-pulse" style={{ backgroundColor: "var(--pixel-border-soft)" }} />
             ) : loggedIn ? (
-              <div className="flex items-center gap-4">
-                <span className="text-sm" style={{ color: "var(--pixel-text-muted)" }}>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                <span className="text-sm truncate max-w-[min(100%,14rem)] sm:max-w-none" style={{ color: "var(--pixel-text-muted)" }}>
                   Olá, {user?.name}
                 </span>
-                <Button type="button" asChild className="btn-pixel">
+                <Button type="button" asChild className="btn-pixel w-full sm:w-auto min-h-11">
                   <Link href="/constituicao">Estudar</Link>
                 </Button>
               </div>
             ) : (
-              <Button asChild className="btn-pixel">
+              <Button asChild className="btn-pixel w-full sm:w-auto min-h-11">
                 <a href={getLoginUrl()}>Entrar</a>
               </Button>
             )}
@@ -49,9 +57,9 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="max-w-6xl mx-auto px-4 py-20">
-        <div className="text-center mb-24 px-4 sm:px-8">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: "var(--pixel-text-main)", textShadow: "3px 3px 0px #000" }}>
+      <section className="max-w-6xl mx-auto px-4 py-12 sm:py-20">
+        <div className="text-center mb-16 sm:mb-24 px-4 sm:px-8">
+          <h2 className="pixel-hero-title text-3xl sm:text-4xl md:text-5xl font-bold mb-6" style={{ color: "var(--pixel-text-main)", textShadow: "3px 3px 0px #000" }}>
             Constituição Federal de 1988
           </h2>
           <p className="text-lg md:text-xl mb-10 max-w-3xl mx-auto" style={{ color: "var(--pixel-text-muted)" }}>
@@ -87,7 +95,7 @@ export default function Home() {
             >
               <CardHeader>
                 <CardTitle
-                  className="flex items-center gap-2 text-xl"
+                  className="pixel-card-title flex items-center gap-2 text-lg sm:text-xl"
                   style={{ color: "#16c784", textShadow: "2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000" }}
                 >
                   <BookOpen className="w-6 h-6" />
@@ -109,7 +117,7 @@ export default function Home() {
             >
               <CardHeader>
                 <CardTitle
-                  className="flex items-center gap-2 text-xl"
+                  className="pixel-card-title flex items-center gap-2 text-lg sm:text-xl"
                   style={{ color: "#ffff00", textShadow: "2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000" }}
                 >
                   <Zap className="w-6 h-6" />
@@ -134,7 +142,7 @@ export default function Home() {
             >
               <CardHeader>
                 <CardTitle
-                  className="flex items-center gap-2 text-xl relative z-10"
+                  className="pixel-card-title flex items-center gap-2 text-lg sm:text-xl relative z-10"
                   style={{ color: "#ff6600", textShadow: "2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000" }}
                 >
                   <Trophy className="w-6 h-6" />
@@ -163,7 +171,7 @@ export default function Home() {
             >
               <CardHeader>
                 <CardTitle 
-                  className="flex items-center gap-2 text-xl" 
+                  className="pixel-card-title flex items-center gap-2 text-lg sm:text-xl" 
                   style={{ color: "#00ff41", textShadow: "2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000" }}
                 >
                   <Brain className="w-6 h-6" />
@@ -187,7 +195,7 @@ export default function Home() {
             >
               <CardHeader>
                 <CardTitle 
-                  className="flex items-center gap-2 text-xl" 
+                  className="pixel-card-title flex items-center gap-2 text-lg sm:text-xl" 
                   style={{ color: "#00ff41", textShadow: "2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000, 1px 1px 0px #000" }}
                 >
                   <Lightbulb className="w-6 h-6" />
@@ -204,8 +212,8 @@ export default function Home() {
         </div>
 
         {/* CTA Section */}
-        <div className="rounded-lg p-12 text-center" style={{ backgroundColor: "var(--pixel-surface)", border: "2px solid var(--pixel-border-soft)", boxShadow: "2px 2px 0px rgba(0, 0, 0, 0.35)" }}>
-          <h3 className="text-3xl font-bold mb-4" style={{ color: "var(--pixel-text-main)" }}>
+        <div className="rounded-lg p-8 sm:p-12 text-center" style={{ backgroundColor: "var(--pixel-surface)", border: "2px solid var(--pixel-border-soft)", boxShadow: "2px 2px 0px rgba(0, 0, 0, 0.35)" }}>
+          <h3 className="pixel-card-title text-2xl sm:text-3xl font-bold mb-4" style={{ color: "var(--pixel-text-main)" }}>
             Pronto para dominar a Constituição?
           </h3>
           <p className="text-lg mb-8" style={{ color: "var(--pixel-text-muted)" }}>

@@ -144,7 +144,7 @@ export default function ConstitutionLayout({
         </header>
 
         {/* Content */}
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto min-w-0 lg:pl-64">
           {children}
         </main>
       </div>

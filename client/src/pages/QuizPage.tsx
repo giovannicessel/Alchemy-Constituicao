@@ -342,7 +342,7 @@ export default function QuizPage() {
 
             <div className="card-pixel" style={{ backgroundColor: "#0f3460", borderColor: "#ffff00" }}>
               <div className="p-6">
-                <h2 className="text-xl font-bold mb-6" style={{ color: "#ffff00" }}>
+                <h2 className="text-lg sm:text-xl font-bold mb-6 break-words" style={{ color: "#ffff00" }}>
                   {q.question}
                 </h2>
                 <div className="space-y-3">
@@ -351,7 +351,7 @@ export default function QuizPage() {
                       key={letter}
                       type="button"
                       onClick={() => handleAnswer(letter)}
-                      className="w-full p-4 text-left rounded transition-all border-[3px] border-[#16c784] hover:bg-[#16c784] hover:text-[#1a1a2e]"
+                      className="w-full min-h-12 p-4 text-left text-sm sm:text-base rounded transition-all border-[3px] border-[#16c784] hover:bg-[#16c784] hover:text-[#1a1a2e] break-words"
                       style={{ backgroundColor: "#1a1a2e", color: "#ffffff" }}
                     >
                       <span className="font-bold">{letter}.</span> {text}
@@ -368,11 +368,11 @@ export default function QuizPage() {
           <div className="space-y-6">
             <div className="card-pixel" style={{ backgroundColor: "#0f3460", borderColor: "#00ff41" }}>
               <div className="p-12 text-center">
-                <h2 className="text-4xl font-bold mb-6" style={{ color: "#00ff41", textShadow: "2px 2px 0px #8800ff" }}>
+                <h2 className="text-2xl sm:text-4xl font-bold mb-6 break-words px-2" style={{ color: "#00ff41", textShadow: "2px 2px 0px #8800ff" }}>
                   Fim do quiz
                 </h2>
                 <div
-                  className="text-6xl font-bold mb-6 p-6 rounded inline-block"
+                  className="text-4xl sm:text-6xl font-bold mb-6 p-4 sm:p-6 rounded inline-block tabular-nums max-w-full break-all px-2"
                   style={{
                     color: "#ffff00",
                     backgroundColor: "#16c784",
@@ -404,7 +404,7 @@ export default function QuizPage() {
               </h3>
               <ul className="space-y-3 text-left text-sm">
                 {questions.map((item, i) => (
-                  <li key={item.id} style={{ color: "#e0e0e0" }}>
+                  <li key={item.id} className="break-words" style={{ color: "#e0e0e0" }}>
                     <strong style={{ color: "#00ff41" }}>{i + 1}.</strong> {item.question}
                     <div className="text-xs mt-1" style={{ color: "#16c784" }}>
                       Gabarito: {item.correctAnswer}

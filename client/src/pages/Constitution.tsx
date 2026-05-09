@@ -8,9 +8,20 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { trpc } from "@/lib/trpc";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookMarked, ChevronDown, ChevronLeft, ChevronRight, Headphones, Search, Sparkles, X } from "lucide-react";
+import {
+  BookMarked,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Headphones,
+  List,
+  Search,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 type ArticleRow = {
   id: number;
@@ -39,6 +50,109 @@ function splitLegalTextForDisplay(text: string): string[] {
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
+}
+
+type ArticleNavInnerProps = {
+  articlesLoading: boolean;
+  filteredGrouped: Map<string, ArticleRow[]>;
+  openTitles: Record<string, boolean>;
+  toggleTitle: (title: string) => void;
+  selectedArticle: ArticleRow | undefined;
+  setSelectedArticleId: (id: number) => void;
+  searchTerm: string;
+  setSearchTerm: (v: string) => void;
+  onArticlePicked?: () => void;
+};
+
+function ConstitutionArticleNavInner({
+  articlesLoading,
+  filteredGrouped,
+  openTitles,
+  toggleTitle,
+  selectedArticle,
+  setSelectedArticleId,
+  searchTerm,
+  setSearchTerm,
+  onArticlePicked,
+}: ArticleNavInnerProps) {
+  return (
+    <>
+      <h2
+        className="text-lg font-bold mb-4"
+        style={{ color: "var(--pixel-text-main)", textShadow: "1px 1px 0px #000" }}
+      >
+        Navegar
+      </h2>
+      <div className="relative mb-4">
+        <Search className="absolute left-2 top-2 w-4 h-4" style={{ color: "var(--pixel-text-muted)" }} />
+        <Input
+          placeholder="Buscar artigo ou palavra..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="input-pixel pl-8 w-full"
+          style={{
+            backgroundColor: "var(--pixel-page-bg)",
+            color: "var(--pixel-text-main)",
+            borderColor: "var(--pixel-border-soft)",
+          }}
+        />
+      </div>
+
+      <div className="space-y-2 max-h-[min(70vh,560px)] overflow-y-auto pr-1">
+        {articlesLoading ? (
+          <div style={{ color: "var(--pixel-text-muted)" }}>Carregando...</div>
+        ) : (
+          Array.from(filteredGrouped.entries()).map(([titleName, titleArticles]) => (
+            <Collapsible
+              key={titleName}
+              open={openTitles[titleName] ?? true}
+              onOpenChange={() => toggleTitle(titleName)}
+            >
+              <CollapsibleTrigger className="flex w-full items-center justify-between rounded px-2 py-2 text-left font-bold text-sm hover:bg-[var(--pixel-border-soft)]/20">
+                <span style={{ color: "var(--pixel-text-main)" }} className="truncate pr-2">
+                  {titleName}
+                </span>
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 shrink-0 transition-transform",
+                    openTitles[titleName] ?? true ? "rotate-180" : ""
+                  )}
+                  style={{ color: "var(--pixel-text-muted)" }}
+                />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="space-y-1 pt-1">
+                {titleArticles.map((article) => (
+                  <button
+                    key={article.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedArticleId(article.id);
+                      onArticlePicked?.();
+                    }}
+                    className={cn(
+                      "w-full text-left p-2 rounded transition-all border-2",
+                      selectedArticle?.id === article.id
+                        ? "border-[var(--pixel-border-soft)] shadow-[2px_2px_0_#000]"
+                        : "border-transparent"
+                    )}
+                    style={{
+                      backgroundColor:
+                        selectedArticle?.id === article.id ? "var(--pixel-border-soft)" : "transparent",
+                      color:
+                        selectedArticle?.id === article.id ? "var(--pixel-page-bg)" : "var(--pixel-text-muted)",
+                    }}
+                  >
+                    <div className="text-xs font-bold">Art. {article.number}</div>
+                    <div className="text-[11px] opacity-90 truncate">{article.chapterTitle}</div>
+                  </button>
+                ))}
+              </CollapsibleContent>
+            </Collapsible>
+          ))
+        )}
+      </div>
+    </>
+  );
 }
 
 export default function Constitution() {
@@ -70,6 +184,7 @@ export default function Constitution() {
   const [showAudioPlayer, setShowAudioPlayer] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [openTitles, setOpenTitles] = useState<Record<string, boolean>>({});
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const markRead = trpc.constitution.markArticleAsRead.useMutation({
     onSuccess: () => utils.constitution.getUserProgress.invalidate(),
@@ -178,19 +293,27 @@ export default function Constitution() {
         className="sticky top-0 z-40"
         style={{ backgroundColor: "var(--pixel-header)", borderBottom: "2px solid var(--pixel-border-soft)" }}
       >
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-7 h-7" style={{ color: "#ff00ff" }} />
+        <div className="max-w-6xl mx-auto px-4 min-h-16 py-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
+          <div className="flex min-w-0 items-center gap-2">
+            <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 shrink-0" style={{ color: "#ff00ff" }} />
             <h1
-              className="text-xl sm:text-2xl font-bold"
+              className="text-lg sm:text-xl md:text-2xl font-bold truncate"
               style={{ color: "#00ff41", textShadow: "4px 4px 0px #8800ff" }}
             >
               CF/88 viva
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <Button
+              type="button"
+              className="btn-pixel gap-2 lg:hidden min-h-11"
+              onClick={() => setMobileNavOpen(true)}
+            >
+              <List className="h-4 w-4 shrink-0" />
+              Índice
+            </Button>
             <ThemeToggle />
-            <Button onClick={() => setLocation("/")} className="btn-pixel">
+            <Button onClick={() => setLocation("/")} className="btn-pixel min-h-11">
               Voltar
             </Button>
           </div>
@@ -227,78 +350,57 @@ export default function Constitution() {
             </code>
           </motion.div>
         ) : (
-          <div className="grid lg:grid-cols-4 gap-6">
-            <div className="lg:col-span-1 space-y-4">
-              <div className="card-pixel" style={{ backgroundColor: "var(--pixel-surface)", borderColor: "var(--pixel-border-soft)" }}>
-                <div className="p-4">
-                  <h2 className="text-lg font-bold mb-4" style={{ color: "var(--pixel-text-main)", textShadow: "1px 1px 0px #000" }}>
-                    Navegar
-                  </h2>
-                  <div className="relative mb-4">
-                    <Search className="absolute left-2 top-2 w-4 h-4" style={{ color: "var(--pixel-text-muted)" }} />
-                    <Input
-                      placeholder="Buscar artigo ou palavra..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="input-pixel pl-8 w-full"
-                      style={{ backgroundColor: "var(--pixel-page-bg)", color: "var(--pixel-text-main)", borderColor: "var(--pixel-border-soft)" }}
+          <>
+            <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+              <SheetContent
+                side="left"
+                className="w-[min(100vw-0.5rem,22rem)] overflow-y-auto border-[var(--pixel-border-soft)] bg-[var(--pixel-page-bg)] p-4 sm:max-w-sm"
+              >
+                <SheetHeader className="p-0 text-left">
+                  <SheetTitle className="text-base" style={{ color: "var(--pixel-text-main)" }}>
+                    Índice de artigos
+                  </SheetTitle>
+                </SheetHeader>
+                <div
+                  className="card-pixel mt-4"
+                  style={{ backgroundColor: "var(--pixel-surface)", borderColor: "var(--pixel-border-soft)" }}
+                >
+                  <div className="p-4">
+                    <ConstitutionArticleNavInner
+                      articlesLoading={articlesLoading}
+                      filteredGrouped={filteredGrouped}
+                      openTitles={openTitles}
+                      toggleTitle={toggleTitle}
+                      selectedArticle={selectedArticle}
+                      setSelectedArticleId={setSelectedArticleId}
+                      searchTerm={searchTerm}
+                      setSearchTerm={setSearchTerm}
+                      onArticlePicked={() => setMobileNavOpen(false)}
                     />
                   </div>
+                </div>
+              </SheetContent>
+            </Sheet>
 
-                  <div className="space-y-2 max-h-[min(70vh,560px)] overflow-y-auto pr-1">
-                    {articlesLoading ? (
-                      <div style={{ color: "var(--pixel-text-muted)" }}>Carregando...</div>
-                    ) : (
-                      Array.from(filteredGrouped.entries()).map(([titleName, titleArticles]) => (
-                        <Collapsible
-                          key={titleName}
-                          open={openTitles[titleName] ?? true}
-                          onOpenChange={() => toggleTitle(titleName)}
-                        >
-                          <CollapsibleTrigger className="flex w-full items-center justify-between rounded px-2 py-2 text-left font-bold text-sm hover:bg-[var(--pixel-border-soft)]/20">
-                            <span style={{ color: "var(--pixel-text-main)" }} className="truncate pr-2">
-                              {titleName}
-                            </span>
-                            <ChevronDown
-                              className={cn(
-                                "w-4 h-4 shrink-0 transition-transform",
-                                openTitles[titleName] ?? true ? "rotate-180" : ""
-                              )}
-                              style={{ color: "var(--pixel-text-muted)" }}
-                            />
-                          </CollapsibleTrigger>
-                          <CollapsibleContent className="space-y-1 pt-1">
-                            {titleArticles.map((article) => (
-                              <button
-                                key={article.id}
-                                type="button"
-                                onClick={() => setSelectedArticleId(article.id)}
-                                className={cn(
-                                  "w-full text-left p-2 rounded transition-all border-2",
-                                  selectedArticle?.id === article.id
-                                    ? "border-[var(--pixel-border-soft)] shadow-[2px_2px_0_#000]"
-                                    : "border-transparent"
-                                )}
-                                style={{
-                                  backgroundColor:
-                                    selectedArticle?.id === article.id ? "var(--pixel-border-soft)" : "transparent",
-                                  color: selectedArticle?.id === article.id ? "var(--pixel-page-bg)" : "var(--pixel-text-muted)",
-                                }}
-                              >
-                                <div className="text-xs font-bold">Art. {article.number}</div>
-                                <div className="text-[11px] opacity-90 truncate">{article.chapterTitle}</div>
-                              </button>
-                            ))}
-                          </CollapsibleContent>
-                        </Collapsible>
-                      ))
-                    )}
+            <div className="grid lg:grid-cols-4 gap-6">
+              <div className="hidden lg:block lg:col-span-1 space-y-4">
+                <div className="card-pixel" style={{ backgroundColor: "var(--pixel-surface)", borderColor: "var(--pixel-border-soft)" }}>
+                  <div className="p-4">
+                    <ConstitutionArticleNavInner
+                      articlesLoading={articlesLoading}
+                      filteredGrouped={filteredGrouped}
+                      openTitles={openTitles}
+                      toggleTitle={toggleTitle}
+                      selectedArticle={selectedArticle}
+                      setSelectedArticleId={setSelectedArticleId}
+                      searchTerm={searchTerm}
+                      setSearchTerm={setSearchTerm}
+                    />
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="lg:col-span-3">
+              <div className="lg:col-span-3 pb-28 lg:pb-0 min-w-0">
               <AnimatePresence mode="wait">
                 {selectedArticle ? (
                   <motion.div
@@ -486,7 +588,10 @@ export default function Constitution() {
                                 return (
                                   <li
                                     key={`${selectedArticle.id}-${index}`}
-                                    className={cn("text-sm leading-relaxed", isItem ? "pl-4 border-l-2" : "")}
+                                    className={cn(
+                                      "text-sm leading-relaxed break-words",
+                                      isItem ? "pl-4 border-l-2" : ""
+                                    )}
                                     style={{ color: "var(--pixel-text-main)", borderColor: isItem ? "var(--pixel-border-soft)" : undefined }}
                                   >
                                     {line}
@@ -556,11 +661,22 @@ export default function Constitution() {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-4 justify-center items-center">
+                    <div
+                      className={cn(
+                        "flex flex-wrap gap-3 sm:gap-4 justify-center items-center",
+                        "lg:static lg:border-t-0 lg:bg-transparent lg:p-0 lg:shadow-none",
+                        "fixed bottom-0 left-0 right-0 z-30 border-t-2 px-3 py-3",
+                        "bg-[var(--pixel-page-bg)]/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md"
+                      )}
+                      style={{
+                        borderColor: "var(--pixel-border-soft)",
+                        paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0px))",
+                      }}
+                    >
                       <Button
                         onClick={goPrev}
                         disabled={!hasPrev}
-                        className="btn-pixel"
+                        className="btn-pixel min-h-11"
                         style={{ opacity: hasPrev ? 1 : 0.45 }}
                       >
                         <ChevronLeft className="w-4 h-4 mr-2" />
@@ -568,7 +684,7 @@ export default function Constitution() {
                       </Button>
 
                       <div
-                        className="px-4 py-2 rounded font-bold"
+                        className="px-3 sm:px-4 py-2 rounded text-sm sm:text-base font-bold tabular-nums"
                         style={{
                           backgroundColor: "var(--pixel-border-soft)",
                           color: "var(--pixel-page-bg)",
@@ -581,7 +697,7 @@ export default function Constitution() {
                       <Button
                         onClick={goNext}
                         disabled={!hasNext}
-                        className="btn-pixel"
+                        className="btn-pixel min-h-11"
                         style={{ opacity: hasNext ? 1 : 0.45 }}
                       >
                         Próximo
@@ -609,6 +725,7 @@ export default function Constitution() {
               </AnimatePresence>
             </div>
           </div>
+          </>
         )}
       </div>
     </div>

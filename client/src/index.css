@@ -205,7 +205,7 @@
   --pixel-text-muted: #b9d8c8;
 }
 
-/* Efeito de scanline */
+/* Efeito de scanline (mais suave no mobile para reduzir cansaço visual) */
 body::after {
   content: '';
   position: fixed;
@@ -222,6 +222,18 @@ body::after {
     transparent 3px
   );
   z-index: 9998;
+}
+
+@media (max-width: 768px) {
+  body::after {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.018),
+      rgba(0, 0, 0, 0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
 }
 
 /* Animações pixel art */
@@ -307,6 +319,20 @@ h3 {
     letter-spacing: 0.2px;
     text-transform: none;
     padding: 10px 14px;
+  }
+
+  .input-pixel {
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  /* Sombras de hero/cards pixel — menos peso em telas estreitas */
+  .pixel-hero-title {
+    text-shadow: none !important;
+  }
+
+  .pixel-card-title {
+    text-shadow: none !important;
   }
 }
 
