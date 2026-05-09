@@ -1,8 +1,5 @@
-import mysql, { type Connection } from "mysql2/promise";
-
 /**
- * Upsert mínimo só para o callback Google na Vercel — evita importar `server/db`
- * (drizzle + schema inteiro → bundle pesado / crash da função).
+ * Upsert OAuth sem import estático de `mysql2` — o addon nativo no topo rebenta o cold start na Vercel.
  */
 export async function upsertGoogleOAuthUser(input: {
   openId: string;
@@ -18,7 +15,9 @@ export async function upsertGoogleOAuthUser(input: {
   const ownerOpenId = process.env.OWNER_OPEN_ID?.trim();
   const role = ownerOpenId && input.openId === ownerOpenId ? "admin" : "user";
 
-  let conn: Connection | undefined;
+  const mysqlMod = await import("mysql2/promise");
+  const mysql = mysqlMod.default ?? mysqlMod;
+  let conn: Awaited<ReturnType<typeof mysql.createConnection>> | undefined;
   try {
     conn = await mysql.createConnection(databaseUrl);
     await conn.execute(

@@ -1,11 +1,9 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
 import { SignJWT } from "jose";
-import { upsertGoogleOAuthUser } from "./googleCallbackUpsert";
 
 /**
- * Sem `server/db` — grafo drizzle/schema rebentava o cold start na Vercel (`FUNCTION_INVOCATION_FAILED`).
- * Persistência: só `mysql2` + SQL em `googleCallbackUpsert.ts`.
+ * `mysql2` só carrega depois do Google (import dinâmico em `googleCallbackUpsert.ts` + import dinâmico do módulo aqui).
  */
 
 const COOKIE_NAME = "app_session_id";
@@ -145,6 +143,7 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     if (!profile.sub) throw new Error("Google sub ausente");
 
     const openId = `google:${profile.sub}`;
+    const { upsertGoogleOAuthUser } = await import("./googleCallbackUpsert");
     await upsertGoogleOAuthUser({
       openId,
       name: profile.name ?? null,
