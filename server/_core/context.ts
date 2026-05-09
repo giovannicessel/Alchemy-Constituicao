@@ -15,9 +15,6 @@ export async function createContext(
   opts: CreateExpressContextOptions
 ): Promise<TrpcContext> {
   let user: User | null = null;
-  const trpcPath = `${opts.req.path ?? ""}${opts.req.url ?? ""}`;
-  const isAuthProbeRoute =
-    trpcPath.includes("auth.me") || trpcPath.includes("auth.logout");
 
   const token = parseCookieHeader(opts.req.headers.cookie ?? "")[COOKIE_NAME];
 
@@ -36,16 +33,11 @@ export async function createContext(
     }
   };
 
-  if (!isAuthProbeRoute) {
-    try {
-      const { sdk } = await import("./sdk");
-      user = await sdk.authenticateRequest(opts.req);
-    } catch {
-      // Authentication is optional for public procedures.
-      user = null;
-    }
-  } else {
-    // Evita derrubar a função no handshake auth.me/logout quando DB está instável.
+  const shouldUseLightweightAuth =
+    process.env.VERCEL === "1" && process.env.ENABLE_TRPC_DB !== "1";
+
+  if (shouldUseLightweightAuth) {
+    // Em produção serverless, evita dependência de DB na montagem do contexto.
     const session = await parseSessionFromCookie();
     if (session) {
       user = {
@@ -59,6 +51,14 @@ export async function createContext(
         updatedAt: new Date(),
         lastSignedIn: new Date(),
       };
+    }
+  } else {
+    try {
+      const { sdk } = await import("./sdk");
+      user = await sdk.authenticateRequest(opts.req);
+    } catch {
+      // Authentication is optional for public procedures.
+      user = null;
     }
   }
 
