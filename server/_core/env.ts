@@ -2,10 +2,20 @@ function trimEnv(value: string | undefined): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+/** Vercel/marketplace usa por vezes MYSQL_URL ou PRISMA_DATABASE_URL em vez de DATABASE_URL. */
+function firstDatabaseUrlFromEnv(): string {
+  const keys = ["DATABASE_URL", "MYSQL_URL", "PRISMA_DATABASE_URL"] as const;
+  for (const key of keys) {
+    const v = trimEnv(process.env[key]);
+    if (v) return v;
+  }
+  return "";
+}
+
 export const ENV = {
   appId: process.env.VITE_APP_ID ?? "local-app",
   cookieSecret: trimEnv(process.env.JWT_SECRET) || "dev-local-secret-change-me",
-  databaseUrl: trimEnv(process.env.DATABASE_URL),
+  databaseUrl: firstDatabaseUrlFromEnv(),
   oAuthServerUrl: trimEnv(process.env.OAUTH_SERVER_URL),
   ownerOpenId: trimEnv(process.env.OWNER_OPEN_ID),
   isProduction: process.env.NODE_ENV === "production",

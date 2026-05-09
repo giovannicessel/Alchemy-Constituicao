@@ -12,6 +12,11 @@ export default function handler(
     hasGoogleClientSecret: has("GOOGLE_CLIENT_SECRET"),
     hasJwtSecret: has("JWT_SECRET"),
     hasDatabaseUrl: has("DATABASE_URL"),
+    hasMysqlUrl: has("MYSQL_URL"),
+    hasPrismaDatabaseUrl: has("PRISMA_DATABASE_URL"),
+    /** Qualquer uma das três (a app usa a primeira preenchida: DATABASE_URL → MYSQL_URL → PRISMA_DATABASE_URL). */
+    hasAnyDatabaseUrl:
+      has("DATABASE_URL") || has("MYSQL_URL") || has("PRISMA_DATABASE_URL"),
     hasGoogleRedirectUri: has("GOOGLE_REDIRECT_URI"),
     /** true = JWT_SECRET não definido; o app usa fallback de desenvolvimento (funciona, mas defina um segredo em produção). */
     jwtSecretIsDefaultFallback: !has("JWT_SECRET"),

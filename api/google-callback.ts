@@ -1,6 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
 import { SignJWT } from "jose";
+import { ENV } from "../server/_core/env";
 
 /**
  * Tudo num só ficheiro — a Vercel não empacota bem `api/foo.ts` + `api/bar.ts` irmãos.
@@ -80,9 +81,9 @@ async function upsertGoogleOAuthUser(input: {
   name: string | null;
   email: string | null;
 }): Promise<void> {
-  const databaseUrl = process.env.DATABASE_URL?.trim();
+  const databaseUrl = ENV.databaseUrl;
   if (!databaseUrl) {
-    console.warn("[google-callback] DATABASE_URL ausente — skip upsert");
+    console.warn("[google-callback] DATABASE_URL / MYSQL_URL ausente — skip upsert");
     return;
   }
 
