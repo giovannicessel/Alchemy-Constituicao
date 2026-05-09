@@ -1,10 +1,11 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
 import { SignJWT } from "jose";
+import * as db from "../server/db";
 
 /**
- * Zero imports de `server/_core/*` — mesmo patamar que `google-login.ts`.
- * Único contacto com o resto da app: `import("../server/db")` dinâmico no upsert.
+ * Sem `server/_core/*`. Import **estático** de `../server/db`: na Vercel o `import()`
+ * dinâmico não inclui o ficheiro no pacote da função (`Cannot find module …/server/db`).
  */
 
 const COOKIE_NAME = "app_session_id";
@@ -144,7 +145,6 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     if (!profile.sub) throw new Error("Google sub ausente");
 
     const openId = `google:${profile.sub}`;
-    const db = await import("../server/db");
     await db.upsertUser({
       openId,
       name: profile.name ?? null,
