@@ -1,9 +1,11 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
 import { SignJWT } from "jose";
+import { upsertGoogleOAuthUser } from "./googleCallbackUpsert";
 
 /**
- * `mysql2` só carrega depois do Google (import dinâmico em `googleCallbackUpsert.ts` + import dinâmico do módulo aqui).
+ * Import **estático** do upsert: na Vercel o `import("./googleCallbackUpsert")` dinâmico não inclui o ficheiro em `/var/task`.
+ * `mysql2` continua a carregar só dentro de `upsertGoogleOAuthUser` (import dinâmico lá dentro).
  */
 
 const COOKIE_NAME = "app_session_id";
@@ -143,7 +145,6 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     if (!profile.sub) throw new Error("Google sub ausente");
 
     const openId = `google:${profile.sub}`;
-    const { upsertGoogleOAuthUser } = await import("./googleCallbackUpsert");
     await upsertGoogleOAuthUser({
       openId,
       name: profile.name ?? null,
