@@ -1,11 +1,11 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
 import { SignJWT } from "jose";
-import * as db from "../server/db";
+import { upsertGoogleOAuthUser } from "./googleCallbackUpsert";
 
 /**
- * Sem `server/_core/*`. Import **estático** de `../server/db`: na Vercel o `import()`
- * dinâmico não inclui o ficheiro no pacote da função (`Cannot find module …/server/db`).
+ * Sem `server/db` — grafo drizzle/schema rebentava o cold start na Vercel (`FUNCTION_INVOCATION_FAILED`).
+ * Persistência: só `mysql2` + SQL em `googleCallbackUpsert.ts`.
  */
 
 const COOKIE_NAME = "app_session_id";
@@ -145,12 +145,10 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     if (!profile.sub) throw new Error("Google sub ausente");
 
     const openId = `google:${profile.sub}`;
-    await db.upsertUser({
+    await upsertGoogleOAuthUser({
       openId,
       name: profile.name ?? null,
       email: profile.email ?? null,
-      loginMethod: "google",
-      lastSignedIn: new Date(),
     });
 
     const appId = process.env.VITE_APP_ID?.trim() ?? "local-app";
