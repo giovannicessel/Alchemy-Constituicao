@@ -1,6 +1,6 @@
 /**
  * Diagnóstico de DB em produção sem expor segredos.
- * Mostra host/database resolvidos e contagem de tabelas-chave.
+ * NÃO importa mysql2 (evita crash nativo no runtime Vercel).
  */
 export default async function handler(
   _req: unknown,
@@ -40,36 +40,15 @@ export default async function handler(
     payload.dbHost = "invalid_url";
   }
 
-  try {
-    const mysqlMod = await import("mysql2/promise");
-    const mysql = mysqlMod.default ?? mysqlMod;
-    const conn = await mysql.createConnection({
-      uri: url,
-      connectTimeout: 8000,
-      enableKeepAlive: true,
-    });
-    try {
-      const pickCount = async (table: string) => {
-        const [rows] = await conn.query(`SELECT COUNT(*) as c FROM \`${table}\``);
-        const row = Array.isArray(rows) ? (rows[0] as { c?: number } | undefined) : undefined;
-        return Number(row?.c ?? 0);
-      };
-      payload.counts = {
-        titles: await pickCount("titles"),
-        chapters: await pickCount("chapters"),
-        articles: await pickCount("articles"),
-        quizQuestions: await pickCount("quizQuestions"),
-        flashcards: await pickCount("flashcards"),
-        users: await pickCount("users"),
-      };
-      payload.ok = true;
-    } finally {
-      await conn.end();
-    }
-  } catch (error) {
-    payload.ok = false;
-    payload.error = error instanceof Error ? error.message : String(error);
-  }
+  const lower = url.toLowerCase();
+  payload.pointsToLocalhost =
+    lower.includes("127.0.0.1") ||
+    lower.includes("localhost") ||
+    lower.includes("@localhost") ||
+    lower.includes("//localhost");
+  payload.note =
+    "Endpoint leve: sem teste de conexão MySQL (evita FUNCTION_INVOCATION_FAILED no runtime).";
+  payload.ok = true;
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
