@@ -11,10 +11,29 @@ function getQueryParam(req: Request, key: string): string | undefined {
 }
 
 function oauthCallbackHint(message: string): string {
+  const m = message.toLowerCase();
   if (message.includes("Token exchange failed")) return "token_exchange";
   if (message.includes("Userinfo failed")) return "userinfo";
-  if (message.includes("Database") || message.includes("upsert")) return "database";
-  if (message.includes("JWT") || message.includes("sign") || message.includes("secret")) return "session_jwt";
+  if (
+    message.includes("Database") ||
+    message.includes("upsert") ||
+    m.includes("mysql") ||
+    m.includes("er_dup") ||
+    m.includes("duplicate entry") ||
+    m.includes("foreign key") ||
+    m.includes("sql") ||
+    m.includes("econnrefused") ||
+    m.includes("etimedout") ||
+    m.includes("enotfound") ||
+    m.includes("getaddrinfo") ||
+    m.includes("ssl") ||
+    m.includes("tls") ||
+    m.includes("access denied")
+  ) {
+    return "database";
+  }
+  if (message.includes("JWT") || message.includes("sign") || m.includes("jose")) return "session_jwt";
+  if (m.includes("cannot find module")) return "module_resolution";
   return "unknown";
 }
 
@@ -35,15 +54,22 @@ export async function handleGoogleOAuthCallback(req: Request, res: Response): Pr
     return;
   }
 
-  if (!ENV.googleClientSecret?.trim()) {
-    res.status(500).json({
-      error: "GOOGLE_CLIENT_SECRET não configurado na Vercel",
-      hint: "missing_client_secret",
-    });
-    return;
-  }
+    if (!ENV.googleClientSecret?.trim()) {
+      res.status(500).json({
+        error: "GOOGLE_CLIENT_SECRET não configurado na Vercel",
+        hint: "missing_client_secret",
+      });
+      return;
+    }
+    if (!ENV.googleClientId?.trim()) {
+      res.status(500).json({
+        error: "GOOGLE_CLIENT_ID não configurado na Vercel",
+        hint: "missing_client_id",
+      });
+      return;
+    }
 
-  try {
+    try {
     const origin = `${req.protocol}://${req.get("host")}`;
     const redirectUri = ENV.googleRedirectUri || `${origin}/api/auth/google/callback`;
     const body = new URLSearchParams({
@@ -104,9 +130,11 @@ export async function handleGoogleOAuthCallback(req: Request, res: Response): Pr
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
     console.error("[Google OAuth] Callback failed", err);
+    const detail = err.message.length > 800 ? `${err.message.slice(0, 800)}…` : err.message;
     res.status(500).json({
       error: "Google OAuth callback failed",
       hint: oauthCallbackHint(err.message),
+      message: detail,
     });
   }
 }
