@@ -108,7 +108,12 @@ async function upsertGoogleOAuthUser(input: {
   const mysql = mysqlMod.default ?? mysqlMod;
   let conn: Awaited<ReturnType<typeof mysql.createConnection>> | undefined;
   try {
-    conn = await mysql.createConnection(databaseUrl);
+    // Evita a função ficar pendurada até timeout da Vercel quando a rede do DB está indisponível.
+    conn = await mysql.createConnection({
+      uri: databaseUrl,
+      connectTimeout: 8000,
+      enableKeepAlive: true,
+    });
     await conn.execute(
       `INSERT INTO users (\`openId\`, \`name\`, \`email\`, \`loginMethod\`, \`lastSignedIn\`, \`role\`, \`createdAt\`, \`updatedAt\`)
        VALUES (?, ?, ?, 'google', NOW(), ?, NOW(), NOW())
@@ -202,11 +207,16 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     const skipDb =
       process.env.SKIP_GOOGLE_OAUTH_DB === "1" || process.env.SKIP_GOOGLE_OAUTH_DB === "true";
     if (!skipDb) {
-      await upsertGoogleOAuthUser({
-        openId,
-        name: profile.name ?? null,
-        email: profile.email ?? null,
-      });
+      await Promise.race([
+        upsertGoogleOAuthUser({
+          openId,
+          name: profile.name ?? null,
+          email: profile.email ?? null,
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("Database timeout (>12s)")), 12000),
+        ),
+      ]);
     } else {
       console.warn("[google-callback] SKIP_GOOGLE_OAUTH_DB ativo — utilizador não gravado na BD");
     }
