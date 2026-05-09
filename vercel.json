@@ -5,22 +5,12 @@
     "api/index.ts": {
       "maxDuration": 60,
       "memory": 1024,
-      "includeFiles": [
-        "server/**",
-        "shared/**",
-        "drizzle/**",
-        "content/**"
-      ]
+      "includeFiles": "{server/**,shared/**,drizzle/**,content/**}"
     },
     "api/oauth.ts": {
       "maxDuration": 60,
       "memory": 1024,
-      "includeFiles": [
-        "server/**",
-        "shared/**",
-        "drizzle/**",
-        "content/**"
-      ]
+      "includeFiles": "{server/**,shared/**,drizzle/**,content/**}"
     },
     "api/google-login.ts": {
       "maxDuration": 30,

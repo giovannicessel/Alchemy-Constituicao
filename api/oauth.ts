@@ -1,5 +1,5 @@
 import express from "express";
-import { asyncRoute } from "../server/_core/asyncRoute";
+import { asyncRoute } from "../server/_core/asyncRoute.js";
 
 /** Só fluxo Manus (`/api/oauth/callback`). Google → `api/google-callback.ts`. */
 const app = express();
@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.get(
   "/api/oauth/callback",
   asyncRoute(async (req, res) => {
-    const { handleManusOAuthCallback } = await import("../server/_core/manusOAuthCallback");
+    const { handleManusOAuthCallback } = await import("../server/_core/manusOAuthCallback.js");
     return handleManusOAuthCallback(req, res);
   }),
 );
