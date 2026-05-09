@@ -1,7 +1,6 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "../../shared/const";
 import type { Request, Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
-import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
 import { ENV } from "./env";
 import { signSessionJwt } from "./sessionJwt";
@@ -82,6 +81,7 @@ export async function handleGoogleOAuthCallback(req: Request, res: Response): Pr
     if (!profile.sub) throw new Error("Google sub ausente");
 
     const openId = `google:${profile.sub}`;
+    const db = await import("../db");
     await db.upsertUser({
       openId,
       name: profile.name ?? null,

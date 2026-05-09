@@ -1,20 +1,12 @@
 import express from "express";
 import { asyncRoute } from "../server/_core/asyncRoute";
-import { handleGoogleOAuthCallback } from "../server/_core/googleOAuthCallbackHandler";
 
-/**
- * Vercel: callback Google sem carregar `sdk.ts` (axios / Manus) no cold start.
- * Login em `/api/auth/google/login` → `api/google-login.ts`.
- */
+/** Só fluxo Manus (`/api/oauth/callback`). Google → `api/google-callback.ts`. */
 const app = express();
 app.set("trust proxy", 1);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-
-const googleCb = asyncRoute(handleGoogleOAuthCallback);
-app.get("/api/auth/google/callback", googleCb);
-app.get("/auth/google/callback", googleCb);
 
 app.get(
   "/api/oauth/callback",

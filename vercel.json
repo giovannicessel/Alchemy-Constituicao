@@ -15,6 +15,11 @@
     "api/google-login.ts": {
       "maxDuration": 30,
       "memory": 1024
+    },
+    "api/google-callback.ts": {
+      "maxDuration": 60,
+      "memory": 1024,
+      "includeFiles": "{server/**,shared/**,drizzle/**}"
     }
   },
   "rewrites": [
@@ -36,7 +41,7 @@
     },
     {
       "source": "/api/auth/google/callback",
-      "destination": "/api/oauth.ts"
+      "destination": "/api/google-callback.ts"
     },
     {
       "source": "/api/oauth/callback",
