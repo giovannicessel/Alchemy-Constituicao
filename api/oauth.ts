@@ -1,17 +1,28 @@
 import express from "express";
-import { registerOAuthRoutes } from "../server/_core/oauth";
+import { asyncRoute } from "../server/_core/asyncRoute";
+import { handleGoogleOAuthCallback } from "../server/_core/googleOAuthCallbackHandler";
 
 /**
- * Função só para rotas Google OAuth — não importa `server/routers` (tRPC).
- * Evita bundle pesado / crash na mesma função que `/api/trpc`.
+ * Vercel: callback Google sem carregar `sdk.ts` (axios / Manus) no cold start.
+ * Login em `/api/auth/google/login` → `api/google-login.ts`.
  */
 const app = express();
 app.set("trust proxy", 1);
 
 app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-registerOAuthRoutes(app);
+const googleCb = asyncRoute(handleGoogleOAuthCallback);
+app.get("/api/auth/google/callback", googleCb);
+app.get("/auth/google/callback", googleCb);
+
+app.get(
+  "/api/oauth/callback",
+  asyncRoute(async (req, res) => {
+    const { handleManusOAuthCallback } = await import("../server/_core/manusOAuthCallback");
+    return handleManusOAuthCallback(req, res);
+  }),
+);
 
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error("[api/oauth] Error:", err);
