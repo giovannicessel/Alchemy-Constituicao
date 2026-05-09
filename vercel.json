@@ -14,8 +14,7 @@
     },
     "api/google-login.ts": {
       "maxDuration": 30,
-      "memory": 512,
-      "includeFiles": "server/_core/**"
+      "memory": 1024
     }
   },
   "rewrites": [
