@@ -86,6 +86,20 @@ async function upsertGoogleOAuthUser(input: {
     return;
   }
 
+  if (process.env.VERCEL === "1") {
+    const lower = databaseUrl.toLowerCase();
+    if (
+      lower.includes("127.0.0.1") ||
+      lower.includes("localhost") ||
+      lower.includes("@localhost") ||
+      lower.includes("//localhost")
+    ) {
+      throw new Error(
+        "DATABASE_URL na Vercel aponta para localhost — no painel (Production) coloca o URL da MySQL na cloud (não uses .env local).",
+      );
+    }
+  }
+
   const ownerOpenId = process.env.OWNER_OPEN_ID?.trim();
   const role = ownerOpenId && input.openId === ownerOpenId ? "admin" : "user";
 
