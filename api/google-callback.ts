@@ -1,11 +1,13 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { parse as parseCookieHeader } from "cookie";
 import { SignJWT } from "jose";
-import { upsertGoogleOAuthUser } from "./googleCallbackUpsert";
 
 /**
- * Import **estático** do upsert: na Vercel o `import("./googleCallbackUpsert")` dinâmico não inclui o ficheiro em `/var/task`.
- * `mysql2` continua a carregar só dentro de `upsertGoogleOAuthUser` (import dinâmico lá dentro).
+ * Tudo num só ficheiro — a Vercel não empacota bem `api/foo.ts` + `api/bar.ts` irmãos.
+ * `mysql2` só via import dinâmico dentro do upsert.
+ *
+ * Diagnóstico: na Vercel define `SKIP_GOOGLE_OAUTH_DB=1` temporariamente — se o login
+ * redireccionar sem FUNCTION_INVOCATION_FAILED, o crash é ao carregar/usar mysql2.
  */
 
 const COOKIE_NAME = "app_session_id";
@@ -71,6 +73,42 @@ function asyncRoute(
   return (req, res, next) => {
     Promise.resolve(fn(req, res)).catch(next);
   };
+}
+
+async function upsertGoogleOAuthUser(input: {
+  openId: string;
+  name: string | null;
+  email: string | null;
+}): Promise<void> {
+  const databaseUrl = process.env.DATABASE_URL?.trim();
+  if (!databaseUrl) {
+    console.warn("[google-callback] DATABASE_URL ausente — skip upsert");
+    return;
+  }
+
+  const ownerOpenId = process.env.OWNER_OPEN_ID?.trim();
+  const role = ownerOpenId && input.openId === ownerOpenId ? "admin" : "user";
+
+  const mysqlMod = await import("mysql2/promise");
+  const mysql = mysqlMod.default ?? mysqlMod;
+  let conn: Awaited<ReturnType<typeof mysql.createConnection>> | undefined;
+  try {
+    conn = await mysql.createConnection(databaseUrl);
+    await conn.execute(
+      `INSERT INTO users (\`openId\`, \`name\`, \`email\`, \`loginMethod\`, \`lastSignedIn\`, \`role\`, \`createdAt\`, \`updatedAt\`)
+       VALUES (?, ?, ?, 'google', NOW(), ?, NOW(), NOW())
+       ON DUPLICATE KEY UPDATE
+         \`name\` = VALUES(\`name\`),
+         \`email\` = VALUES(\`email\`),
+         \`loginMethod\` = VALUES(\`loginMethod\`),
+         \`lastSignedIn\` = VALUES(\`lastSignedIn\`),
+         \`role\` = VALUES(\`role\`),
+         \`updatedAt\` = NOW()`,
+      [input.openId, input.name, input.email, role],
+    );
+  } finally {
+    if (conn) await conn.end();
+  }
 }
 
 async function handleGoogleCallback(req: Request, res: Response): Promise<void> {
@@ -145,11 +183,18 @@ async function handleGoogleCallback(req: Request, res: Response): Promise<void> 
     if (!profile.sub) throw new Error("Google sub ausente");
 
     const openId = `google:${profile.sub}`;
-    await upsertGoogleOAuthUser({
-      openId,
-      name: profile.name ?? null,
-      email: profile.email ?? null,
-    });
+
+    const skipDb =
+      process.env.SKIP_GOOGLE_OAUTH_DB === "1" || process.env.SKIP_GOOGLE_OAUTH_DB === "true";
+    if (!skipDb) {
+      await upsertGoogleOAuthUser({
+        openId,
+        name: profile.name ?? null,
+        email: profile.email ?? null,
+      });
+    } else {
+      console.warn("[google-callback] SKIP_GOOGLE_OAUTH_DB ativo — utilizador não gravado na BD");
+    }
 
     const appId = process.env.VITE_APP_ID?.trim() ?? "local-app";
     const cookieSecret = trimEnv("JWT_SECRET") || "dev-local-secret-change-me";
@@ -187,7 +232,7 @@ const app = express();
 app.set("trust proxy", 1);
 
 app.use((_req, res, next) => {
-  res.setHeader("X-Handler", "google-callback-inline");
+  res.setHeader("X-Handler", "google-callback-single-file");
   next();
 });
 
