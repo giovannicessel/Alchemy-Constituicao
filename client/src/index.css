@@ -292,6 +292,24 @@ h3 {
   padding: 8px 16px;
 }
 
+/* Mobile readability: mantém tema, mas troca tipografia pixel por sans legível. */
+@media (max-width: 768px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+    letter-spacing: normal;
+    text-shadow: none;
+    line-height: 1.3;
+  }
+
+  .btn-pixel {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    text-transform: none;
+    padding: 10px 14px;
+  }
+}
+
 .btn-pixel:hover {
   background-color: color-mix(in srgb, var(--pixel-surface) 70%, var(--pixel-cyan));
   color: var(--pixel-text-main);
