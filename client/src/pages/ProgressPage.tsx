@@ -9,11 +9,11 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 export default function ProgressPage() {
   const [, setLocation] = useLocation();
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  const { data: progress, isLoading } = isAuthenticated
-    ? trpc.constitution.getUserProgress.useQuery()
-    : { data: null, isLoading: false };
+  const { data: progress, isLoading } = trpc.constitution.getUserProgress.useQuery(undefined, {
+    enabled: isAuthenticated,
+  });
 
   if (!isAuthenticated) {
     return (
