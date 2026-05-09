@@ -7,6 +7,10 @@
       "destination": "/api/health.ts"
     },
     {
+      "source": "/api/diag-env",
+      "destination": "/api/diag-env.ts"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/index.ts"
     },
