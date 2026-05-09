@@ -25,9 +25,9 @@ async function createMysqlDb(connectionUrl: string) {
 let _db: Awaited<ReturnType<typeof createMysqlDb>> | null = null;
 
 function shouldDisableDbOnVercel() {
-  // Hardening: evita crashes recorrentes de função no runtime da Vercel ao carregar o driver mysql.
-  // Reative explicitamente após estabilizar o ambiente: ENABLE_TRPC_DB=1.
-  return process.env.VERCEL === "1" && process.env.ENABLE_TRPC_DB !== "1";
+  // Hardening: em Vercel, mantém DB desativado no caminho tRPC para impedir FUNCTION_INVOCATION_FAILED.
+  // O app usa fallback de conteúdo quando DB está indisponível.
+  return process.env.VERCEL === "1";
 }
 
 // Lazily create the drizzle instance so local tooling can run without a DB.

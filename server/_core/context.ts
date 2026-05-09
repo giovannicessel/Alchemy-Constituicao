@@ -33,8 +33,7 @@ export async function createContext(
     }
   };
 
-  const shouldUseLightweightAuth =
-    process.env.VERCEL === "1" && process.env.ENABLE_TRPC_DB !== "1";
+  const shouldUseLightweightAuth = process.env.VERCEL === "1";
 
   if (shouldUseLightweightAuth) {
     // Em produção serverless, evita dependência de DB na montagem do contexto.
